@@ -2,6 +2,11 @@ package com.mintchoco.mapper;
 
 import com.mintchoco.common.SearchCriteria;
 import com.mintchoco.common.MemberDTO;
+import com.mintchoco.common.TrainDTO;
+
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 public class Application {
@@ -35,21 +40,45 @@ public class Application {
         do {
             System.out.println("1. 전체 기차 정보 조회 ");
             System.out.println("2. 기차 시간 or 순회지역 조회");
-            System.out.println("3. 기차 시간 등록(관리자)");
-            System.out.println("4. 기차 시간 수정(관리자)");
-            System.out.println("5. 기차 시간 삭제(관리자)");
-            System.out.println("번호을 입력하세요 : ");
+            System.out.println("3. 신규 기차 등록(관리자)");
+            System.out.println("4. 기차 정보 수정(관리자)");
+            System.out.println("5. 기차 정보 삭제(관리자)");
+            System.out.println("번호를 입력하세요 : ");
             int no = sc.nextInt();
 
             switch (no) {
                 case 1: trainService.selectAllTrain(); break;
                 case 2: trainService.searchTrainByTimeOrArea(inputSearchCriteria()); break;
-                case 3: break;
+                case 3: trainService.insertTrainTime(inputTime()); break;
                 case 4: break;
                 case 5: break;
 
             }
         } while (true);
+    }
+
+    private static TrainDTO inputTime() {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("추가할 기차명을 입력하세요 : ");
+        String trainName = sc.nextLine();
+        System.out.println("추가할 지역을 입력하세요 : ");
+        String tourArea = sc.nextLine();
+        System.out.println("추가할 시간을 입력하세요(HH:mm) : ");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        Time startTime = null;
+        try {
+            startTime = new Time(sdf.parse(sc.nextLine()).getTime());
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        TrainDTO train = new TrainDTO();
+        train.setTrainName(trainName);
+        train.setTourArea(tourArea);
+        train.setStartTime(startTime);
+
+        return train;
     }
 
     private static SearchCriteria inputSearchCriteria() {
