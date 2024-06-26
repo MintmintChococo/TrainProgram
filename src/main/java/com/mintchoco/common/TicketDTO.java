@@ -1,35 +1,20 @@
 package com.mintchoco.common;
 
+import lombok.*;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
 public class TicketDTO {
 
-    private String name;
-    private int number;
+    private int ticketNO;
+    private int MemberNO;
+    private int trainNO;
+    private String seatNO;
+    private String departure;
+    private String arrival;
+    private String time;
 
-    public TicketDTO() {
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    @Override
-    public String toString() {
-        return "TicketDTO{" +
-                "name='" + name + '\'' +
-                ", number=" + number +
-                '}';
-    }
 }
-
