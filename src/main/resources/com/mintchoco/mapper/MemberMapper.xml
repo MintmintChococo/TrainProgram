@@ -29,4 +29,11 @@
         #{ memberPWD }
         )
     </insert>
+
+<!-- 2. 회원탈퇴 -->
+    <delete id="deleteMember" parameterType="String">
+        delete
+        from member
+        where mem_id = #{ memberID }
+    </delete>
 </mapper>
