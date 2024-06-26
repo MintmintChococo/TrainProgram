@@ -41,3 +41,4 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+/new_train_member.sql

@@ -2,6 +2,8 @@ package com.mintchoco.mapper;
 
 import com.mintchoco.common.SearchCriteria;
 import com.mintchoco.common.MemberDTO;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Application {
@@ -81,7 +83,7 @@ public class Application {
 
             switch (no) {
                 case 1: memberService.register(inputmember()); break;
-//                case 2: memberService.deleteMember(); break;
+                case 2: memberService.deleteMember(inputmemberid()); break;
 //                case 3: memberService.updateMember(); break;
 //                case 4: memberService.selectOneMember(); break;
 //                case 5: memberService.selectAllMember(); break;
@@ -110,5 +112,17 @@ public class Application {
         member.setMemberPWD(PWD);
 
         return member;
+    }
+
+    private static Map<String, String> inputmemberid() {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("회원 아이디를 입력하세요 : ");
+        String memID = sc.next();
+
+        Map<String, String> parameter = new HashMap<>();
+        parameter.put("memID", memID);
+
+        return parameter;
     }
 }
