@@ -11,7 +11,6 @@ public class Application {
         Scanner sc = new Scanner(System.in);
 
 
-
         do {
             System.out.println("=========== 민초레일 운행 사이트 ===========");
             System.out.println("1. 회원");
@@ -21,9 +20,36 @@ public class Application {
             int no = sc.nextInt();
 
             switch (no) {
+
                 case 1: memberSubMenu(); break;
+                case 2: trainSubMenu(); break;
+                case 3: break;
+            }
+        } while (true);
+    }
+
+    private static void trainSubMenu() {
+        Scanner sc = new Scanner(System.in);
+        TrainService trainService = new TrainService();
+
+        do {
+            System.out.println("1. 전체 기차 정보 조회 ");
+            System.out.println("2. 기차 시간 조회");
+            System.out.println("3. 기차 시간 등록(관리자)");
+            System.out.println("4. 기차 시간 수정(관리자)");
+            System.out.println("5. 기차 시간 삭제(관리자)");
+            System.out.println("6. 순회 지역 조회");
+            System.out.println("번호을 입력하세요 : ");
+            int no = sc.nextInt();
+
+            switch (no) {
+                case 1: trainService.selectAllTrain(); break;
+
                 case 2: break;
                 case 3: break;
+                case 4: break;
+                case 5: break;
+                case 6: break;
             }
         } while (true);
     }
