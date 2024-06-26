@@ -51,11 +51,32 @@ public class Application {
                 case 1: trainService.selectAllTrain(); break;
                 case 2: trainService.searchTrainByTimeOrArea(inputSearchCriteria()); break;
                 case 3: trainService.insertTrain(inputTrain()); break;
-                case 4: break;
+                case 4: trainService.modifyTrain(inputChangeInfoTrain()); break;
                 case 5: break;
 
             }
         } while (true);
+    }
+
+    private static Map<String, Object> inputChangeInfoTrain() {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("변경할 기차 번호를 입력하세요 : ");
+        String trainNo = sc.nextLine();
+        System.out.println("변경할 기차명을 입력하세요 : ");
+        String trainName = sc.nextLine();
+        System.out.println("변경할 지역을 입력하세요 : ");
+        String tourArea = sc.nextLine();
+        System.out.println("변경할 출발 시간을 입력하세요 : ");
+        String startTime = sc.nextLine();
+
+        Map<String, Object> criteria = new HashMap<>();
+        criteria.put("trainNo", trainNo);
+        criteria.put("trainName", trainName);
+        criteria.put("tourArea", tourArea);
+        criteria.put("startTime", startTime);
+
+        return criteria;
     }
 
     private static TrainDTO inputTrain() {

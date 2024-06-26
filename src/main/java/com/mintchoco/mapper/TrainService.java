@@ -8,6 +8,7 @@ import java.sql.Time;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import static com.mintchoco.common.Template.getSqlSession;
@@ -82,6 +83,24 @@ public class TrainService {
             sqlSession.rollback();
         }
 
+        sqlSession.close();
+    }
+
+    public void modifyTrain(Map<String, Object> criteria) {
+
+        SqlSession sqlSession = getSqlSession();
+
+        mapper = sqlSession.getMapper(TrainMapper.class);
+
+        int result = mapper.modifyTrain(criteria);
+
+        if(result > 0) {
+            System.out.println("기차 정보 변경에 성공하셨습니다.");
+            sqlSession.commit();
+        } else {
+            System.out.println("기차 정보 변경에 실패하셨습니다[.");
+            sqlSession.rollback();
+        }
         sqlSession.close();
     }
 }
