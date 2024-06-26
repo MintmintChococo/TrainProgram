@@ -48,7 +48,24 @@ public class MemberService {
         }
     }
 
-    public void updateMember() {
+    public void updateMember(Map<String, String> criteria) {
+
+        SqlSession sqlSession = getSqlSession();
+        mapper = sqlSession.getMapper(MemberMapper.class);
+
+        int result = mapper.updateMember(criteria);
+
+        if(result > 0) {
+
+            System.out.println("회원 정보 변경에 성공하셨습니다.");
+            sqlSession.commit();
+
+        } else {
+            System.out.println("회원 정보 변경에 실패하셨습니다.");
+            sqlSession.rollback();
+        }
+
+        sqlSession.close();
     }
 
     public void selectOneMember() {
