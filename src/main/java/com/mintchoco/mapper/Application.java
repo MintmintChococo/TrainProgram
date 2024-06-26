@@ -90,7 +90,7 @@ public class Application {
         String num = sc.next();
         System.out.print("ID를 설정해주세요 : ");
         String ID = sc.next();
-        System.out.print("비밃번호를 설정해주세요 : ");
+        System.out.print("비밀번호를 설정해주세요 : ");
         String PWD = sc.next();
 
         MemberDTO member = new MemberDTO();
