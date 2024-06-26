@@ -40,4 +40,16 @@
         </if>
         order by train_no
     </select>
+
+    <insert id="insertTrain" parameterType="com.mintchoco.common.TrainDTO">
+        insert into train(
+        train_name,
+        tour_area,
+        start_time
+        ) values (
+        #{ trainName },
+        #{ tourArea },
+        #{ startTime }
+        )
+    </insert>
 </mapper>
