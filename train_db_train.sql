@@ -26,10 +26,10 @@ CREATE TABLE `train` (
   `train_no` int NOT NULL AUTO_INCREMENT COMMENT '기차번호',
   `train_name` varchar(255) NOT NULL COMMENT '기차명',
   `tour_area` varchar(255) DEFAULT NULL COMMENT '순회지역',
-  `start_time` varchar(255) DEFAULT NULL COMMENT '출발시간대',
+  `start_time` time(4) DEFAULT NULL COMMENT '출발시간대',
   PRIMARY KEY (`train_no`),
   UNIQUE KEY `train_PK` (`train_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='기차';
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='기차';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `train` (
 
 LOCK TABLES `train` WRITE;
 /*!40000 ALTER TABLE `train` DISABLE KEYS */;
-INSERT INTO `train` VALUES (1,'KTX','서울/부산','8:00, 11:00, 15:00, 19:00'),(2,'GTX','수서/동탄','6:00, 10:30, 13:00, 16:00'),(3,'SRT','서울/대구','7:00, 9:50, 14:30, 18:00'),(4,'무궁화호','인천/울산','7:00, 13:00, 17:00, 19:00');
+INSERT INTO `train` VALUES (5,'KTX1001','서울','08:00:00.000000'),(6,'KTX1002','서울','11:00:00.000000'),(7,'KTX1003','서울','15:00:00.000000'),(8,'KTX1004','서울','19:00:00.000000'),(9,'KTX2020','부산','08:00:00.000000'),(10,'KTX2022','부산','11:00:00.000000'),(11,'KTX2024','부산','15:00:00.000000'),(12,'KTX2026','부산','19:00:00.000000'),(13,'GTX12','수서','06:00:00.000000'),(14,'GTX13','수서','10:30:00.000000'),(15,'GTX14','수서','13:00:00.000000'),(16,'GTX15','수서','16:00:00.000000'),(17,'GTX38','동탄','06:00:00.000000'),(18,'GTX37','동탄','10:30:00.000000'),(19,'GTX36','동탄','13:00:00.000000'),(20,'GTX35','동탄','16:00:00.000000'),(21,'SRT103','대구','07:00:00.000000'),(22,'SRT106','대구','09:50:00.000000'),(23,'SRT109','대구','14:30:00.000000'),(24,'SRT112','대구','18:00:00.000000'),(25,'SRT446','서울','07:00:00.000000'),(26,'SRT448','서울','09:50:00.000000'),(27,'SRT450','서울','14:30:00.000000'),(28,'SRT452','서울','18:00:00.000000'),(29,'무궁화호5','인천','07:00:00.000000'),(30,'무궁화호6','인천','13:00:00.000000'),(31,'무궁화호7','인천','17:00:00.000000'),(32,'무궁화호8','인천','19:00:00.000000'),(33,'무궁화호64','울산','07:00:00.000000'),(34,'무궁화호67','울산','13:00:00.000000'),(35,'무궁화호70','울산','17:00:00.000000'),(36,'무궁화호73','울산','19:00:00.000000');
 /*!40000 ALTER TABLE `train` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-25 18:01:33
+-- Dump completed on 2024-06-26 14:43:00
