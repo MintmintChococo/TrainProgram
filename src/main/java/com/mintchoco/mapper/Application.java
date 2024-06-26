@@ -50,7 +50,7 @@ public class Application {
             switch (no) {
                 case 1: trainService.selectAllTrain(); break;
                 case 2: trainService.searchTrainByTimeOrArea(inputSearchCriteria()); break;
-                case 3: trainService.insertTrainTime(inputTime()); break;
+                case 3: trainService.insertTrain(inputTrain()); break;
                 case 4: break;
                 case 5: break;
 
@@ -58,7 +58,7 @@ public class Application {
         } while (true);
     }
 
-    private static TrainDTO inputTime() {
+    private static TrainDTO inputTrain() {
 
         Scanner sc = new Scanner(System.in);
         System.out.println("추가할 기차명을 입력하세요 : ");

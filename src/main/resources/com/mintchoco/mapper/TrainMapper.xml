@@ -41,7 +41,7 @@
         order by train_no
     </select>
 
-    <insert id="insertTrainTime" parameterType="com.mintchoco.common.TrainDTO">
+    <insert id="insertTrain" parameterType="com.mintchoco.common.TrainDTO">
         insert into train(
         train_name,
         tour_area,

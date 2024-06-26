@@ -10,5 +10,5 @@ public interface TrainMapper {
 
     List<TrainDTO> searchTrainByTimeOrArea(SearchCriteria searchCriteria);
 
-    int insertTrainTime(TrainDTO train);
+    int insertTrain(TrainDTO train);
 }

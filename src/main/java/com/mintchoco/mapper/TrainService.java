@@ -66,13 +66,13 @@ public class TrainService {
         sqlSession.close();
     }
 
-    public void insertTrainTime(TrainDTO train) {
+    public void insertTrain(TrainDTO train) {
 
         SqlSession sqlSession = getSqlSession();
 
         mapper = sqlSession.getMapper(TrainMapper.class);
 
-        int result = mapper.insertTrainTime(train);
+        int result = mapper.insertTrain(train);
 
         if(result > 0) {
             System.out.println("기차 추가 성공");
