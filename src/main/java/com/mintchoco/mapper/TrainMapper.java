@@ -9,4 +9,6 @@ public interface TrainMapper {
     List<TrainDTO> selectAllTrain();
 
     List<TrainDTO> searchTrainByTimeOrArea(SearchCriteria searchCriteria);
+
+    int insertTrain(TrainDTO train);
 }
