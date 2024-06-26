@@ -1,7 +1,7 @@
 package com.mintchoco.mapper;
 
+import com.mintchoco.common.SearchCriteria;
 import com.mintchoco.common.MemberDTO;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -36,24 +36,33 @@ public class Application {
 
         do {
             System.out.println("1. 전체 기차 정보 조회 ");
-            System.out.println("2. 기차 시간 조회");
+            System.out.println("2. 기차 시간 or 순회지역 조회");
             System.out.println("3. 기차 시간 등록(관리자)");
             System.out.println("4. 기차 시간 수정(관리자)");
             System.out.println("5. 기차 시간 삭제(관리자)");
-            System.out.println("6. 순회 지역 조회");
             System.out.println("번호을 입력하세요 : ");
             int no = sc.nextInt();
 
             switch (no) {
                 case 1: trainService.selectAllTrain(); break;
-
-                case 2: break;
+                case 2: trainService.searchTrainByTimeOrArea(inputSearchCriteria()); break;
                 case 3: break;
                 case 4: break;
                 case 5: break;
-                case 6: break;
+
             }
         } while (true);
+    }
+
+    private static SearchCriteria inputSearchCriteria() {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("검색 기준을 입력해주세요.(time or area) : ");
+        String condition = sc.nextLine();
+        System.out.println("검색어를 입력해주세요. : ");
+        String value = sc.nextLine();
+
+        return new SearchCriteria(condition, value);
     }
 
     private static void memberSubMenu() {
