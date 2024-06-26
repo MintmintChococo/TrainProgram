@@ -39,7 +39,7 @@ CREATE TABLE `member` (
 
 LOCK TABLES `member` WRITE;
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` VALUES (1,'황춘식','010-3475-8956','chun01','chunsigi123'),(2,'지동현','010-1234-5555','dong01','dongdong123'),(3,'홍길동','010-7777-7777','hong01','gildong123');
+INSERT INTO `member` VALUES (1,'황춘식','010-3475-8956','chun01','chunsigi123'),(2,'지동현','010-1234-5555','dong01','dongdong123'),(3,'홍길동','010-7777-7777','hong01','gildong123'),(4,'구구단','010-9999-9999','gugu01','gu9999');
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
