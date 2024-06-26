@@ -40,4 +40,6 @@ bin/
 .vscode/
 
 ### Mac OS ###
-.DS_StoreApplication1.java
+.DS_Store
+/new_train_member.sql
+Application1.java
