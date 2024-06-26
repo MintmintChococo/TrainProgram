@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mintchoco.mapper.TrainMapper">
+
     <resultMap id="trainResultMap1" type="com.mintchoco.common.TrainDTO">
         <id property="trainNo" column="train_no"/>
         <result property="trainName" column="train_name"/>
@@ -21,4 +22,34 @@
         from
         train
     </select>
+
+    <select id="searchTrainByTimeOrArea" parameterType="com.mintchoco.common.SearchCriteria" resultMap="trainResultMap1">
+        select
+        train_no,
+        train_name,
+        tour_area,
+        start_time
+        from
+        train
+        <if test="condition == 'time'">
+            where
+            train_name like concat('%', #{ value }, '%')
+        </if>
+        <if test="condition == 'area'">
+            where tour_area like concat('%', #{ value }, '%')
+        </if>
+        order by train_no
+    </select>
+
+    <insert id="insertTrain" parameterType="com.mintchoco.common.TrainDTO">
+        insert into train(
+        train_name,
+        tour_area,
+        start_time
+        ) values (
+        #{ trainName },
+        #{ tourArea },
+        #{ startTime }
+        )
+    </insert>
 </mapper>
