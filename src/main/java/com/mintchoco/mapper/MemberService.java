@@ -3,6 +3,8 @@ package com.mintchoco.mapper;
 import com.mintchoco.common.MemberDTO;
 import org.apache.ibatis.session.SqlSession;
 
+import java.util.Map;
+
 import static com.mintchoco.common.Template.getSqlSession;
 
 public class MemberService {
@@ -27,7 +29,23 @@ public class MemberService {
         sqlSession.close();
     }
 
-    public void deleteMember() {
+    public void deleteMember(Map<String, String> parameter) {
+
+        SqlSession sqlSession = getSqlSession();
+
+        mapper = sqlSession.getMapper(MemberMapper.class);
+
+        String memID = parameter.get("memID");
+
+        int result = mapper.deleteMember(memID);
+
+        if(result > 0) {
+            System.out.println("회원 탈퇴 성공 !");
+            sqlSession.commit();
+        } else {
+            System.out.println("회원 탈퇴 실패 !");
+            sqlSession.rollback();
+        }
     }
 
     public void updateMember() {
