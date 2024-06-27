@@ -14,4 +14,13 @@ public class MemberDTO {
     private String memberNum;
     private String memberID;
     private String memberPWD;
+
+    public void toStringExceptPWD() {
+        System.out.println("회원정보[" +
+                "memberNO=" + memberNO +
+                ", memberName='" + memberName + '\'' +
+                ", memberNum='" + memberNum + '\'' +
+                ", memberID='" + memberID + '\'' +
+                ']');
+    }
 }
