@@ -36,4 +36,22 @@
         from member
         where mem_id = #{ memberID }
     </delete>
+
+<!-- 3. 회원 정보 수정 -->
+    <update id="updateMember" parameterType="hashmap">
+        update
+        member
+        <set>
+            <if test="name != null and name != ''">
+                mem_name = #{ name },
+            </if>
+            <if test="num != null and num != ''">
+                mem_num = #{ num },
+            </if>
+            <if test="PWD != null and PWD != ''">
+                mem_pwd = #{ PWD },
+            </if>
+        </set>
+        where mem_id = #{ ID }
+    </update>
 </mapper>
