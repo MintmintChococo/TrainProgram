@@ -84,4 +84,11 @@
         </trim>
         where train_no = #{ trainNo }
     </update>
+
+    <delete id="deleteTrain" parameterType="_int">
+        delete
+        from
+        train
+        where train_no = #{ trainNo }
+    </delete>
 </mapper>
