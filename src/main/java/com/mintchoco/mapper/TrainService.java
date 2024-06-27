@@ -28,13 +28,16 @@ public class TrainService {
 
         for (TrainDTO train : trainList) {
 
-            LocalTime localTime = train.getStartTime();
+            LocalTime depTime = train.getDepTime();
+            LocalTime arrivalTime = train.getArrivalTime();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
-            String formattedTime = localTime.format(formatter);
+            String formattedTime = depTime.format(formatter);
+            String formattedTime2 = arrivalTime.format(formatter);
 
-            System.out.println("기차번호:" + train.getTrainNo()
-                    + " 기차명:" + train.getTrainName() + " 순회지역:" + train.getTourArea() + " 출발시간대-" + formattedTime);
+            System.out.println("운행번호:" + train.getScNo()
+                    + " 기차명:" + train.getTrainName() + " 출발지:" + train.getDeparture() + " 목적지:" + train.getArrival() +
+                     " 출발시간-" + formattedTime + " 도착시간-" + formattedTime2);
         }
         sqlSession.close();
     }
@@ -48,18 +51,25 @@ public class TrainService {
         List<TrainDTO> trainList = mapper.searchTrainByTimeOrArea(searchCriteria);
 
 
-        if(searchCriteria.getCondition().equals("time")) {
-            for(TrainDTO train : trainList) {
+        if (searchCriteria.getCondition().equals("time")) {
+            for (TrainDTO train : trainList) {
 
-                LocalTime localTime = train.getStartTime();
+                LocalTime depTime = train.getDepTime();
+                LocalTime arrivalTime = train.getArrivalTime();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
-                String formattedTime = localTime.format(formatter);
-                System.out.println("기차명:" + train.getTrainName() + " 기차시간-" + formattedTime);
+                String formattedTime = depTime.format(formatter);
+                String formattedTime2 = arrivalTime.format(formatter);
+
+                System.out.println("기차명:" + train.getTrainName() + " 출발시간-" + formattedTime + "도착시간-" + formattedTime2);
             }
-        } else if (searchCriteria.getCondition().equals("area")) {
-            for(TrainDTO train : trainList) {
-                System.out.println("기차명:" + train.getTrainName() + " 순회지역:" + train.getTourArea());
+        } else if (searchCriteria.getCondition().equals("departure")) {
+            for (TrainDTO train : trainList) {
+                System.out.println("기차명:" + train.getTrainName() + " 출발지:" + train.getDeparture());
+            }
+        } else if (searchCriteria.getCondition().equals("arrival")) {
+            for (TrainDTO train : trainList) {
+                System.out.println("기차명:" + train.getTrainName() + " 목적지:" + train.getArrival());
             }
         } else {
             System.out.println("검색 결과가 존재하지 않습니다.");
@@ -70,8 +80,6 @@ public class TrainService {
     public void insertTrain(TrainDTO train) {
 
         SqlSession sqlSession = getSqlSession();
-
-        System.out.println(train.getStartTime());
 
         mapper = sqlSession.getMapper(TrainMapper.class);
 
@@ -106,16 +114,16 @@ public class TrainService {
         sqlSession.close();
     }
 
-    public void deleteTrain(int trainNo) {
+    public void deleteTrain(int scNo) {
 
         SqlSession sqlSession = getSqlSession();
 
         mapper = sqlSession.getMapper(TrainMapper.class);
 
-        int result = mapper.deleteTrain(trainNo);
+        int result = mapper.deleteTrain(scNo);
 
         if(result > 0) {
-            System.out.println("기차 삭제 성공하셨습니다.");
+            System.out.println("기차 정보 삭제 성공하셨습니다.");
             sqlSession.commit();
         } else {
             System.out.println("기차 삭제 실패하셨습니다.");
