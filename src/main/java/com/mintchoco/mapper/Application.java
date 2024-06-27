@@ -69,10 +69,20 @@ public class Application {
                     trainService.modifyTrain(inputChangeInfoTrain());
                     break;
                 case 5:
+                    trainService.deleteTrain(inputTrainNo());
                     break;
 
             }
         } while (true);
+    }
+
+    private static int inputTrainNo() {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("기차 번호를 입력하세요 : ");
+        int trainNo = sc.nextInt();
+
+        return trainNo;
     }
 
     private static TrainDTO inputChangeInfoTrain() {

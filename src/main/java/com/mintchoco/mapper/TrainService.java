@@ -100,9 +100,28 @@ public class TrainService {
             System.out.println("기차 정보 변경에 성공하셨습니다.");
             sqlSession.commit();
         } else {
-            System.out.println("기차 정보 변경에 실패하셨습니다[.");
+            System.out.println("기차 정보 변경에 실패하셨습니다.");
+            sqlSession.rollback();
+        }
+        sqlSession.close();
+    }
+
+    public void deleteTrain(int trainNo) {
+
+        SqlSession sqlSession = getSqlSession();
+
+        mapper = sqlSession.getMapper(TrainMapper.class);
+
+        int result = mapper.deleteTrain(trainNo);
+
+        if(result > 0) {
+            System.out.println("기차 삭제 성공하셨습니다.");
+            sqlSession.commit();
+        } else {
+            System.out.println("기차 삭제 실패하셨습니다.");
             sqlSession.rollback();
         }
         sqlSession.close();
     }
 }
+

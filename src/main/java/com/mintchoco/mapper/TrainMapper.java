@@ -14,4 +14,6 @@ public interface TrainMapper {
     int insertTrain(TrainDTO train);
 
     int modifyTrain(TrainDTO train);
+
+    int deleteTrain(int trainNo);
 }
