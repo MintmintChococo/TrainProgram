@@ -8,6 +8,7 @@ import java.sql.Time;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import static com.mintchoco.common.Template.getSqlSession;
@@ -26,8 +27,8 @@ public class TrainService {
 
 
         for (TrainDTO train : trainList) {
-            Time time = train.getStartTime();
-            LocalTime localTime = time.toLocalTime();
+
+            LocalTime localTime = train.getStartTime();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
             String formattedTime = localTime.format(formatter);
@@ -49,8 +50,8 @@ public class TrainService {
 
         if(searchCriteria.getCondition().equals("time")) {
             for(TrainDTO train : trainList) {
-                Time time = train.getStartTime();
-                LocalTime localTime = time.toLocalTime();
+
+                LocalTime localTime = train.getStartTime();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
                 String formattedTime = localTime.format(formatter);
@@ -70,6 +71,8 @@ public class TrainService {
 
         SqlSession sqlSession = getSqlSession();
 
+        System.out.println(train.getStartTime());
+
         mapper = sqlSession.getMapper(TrainMapper.class);
 
         int result = mapper.insertTrain(train);
@@ -84,4 +87,41 @@ public class TrainService {
 
         sqlSession.close();
     }
+
+    public void modifyTrain(TrainDTO train) {
+
+        SqlSession sqlSession = getSqlSession();
+
+        mapper = sqlSession.getMapper(TrainMapper.class);
+
+        int result = mapper.modifyTrain(train);
+
+        if(result > 0) {
+            System.out.println("기차 정보 변경에 성공하셨습니다.");
+            sqlSession.commit();
+        } else {
+            System.out.println("기차 정보 변경에 실패하셨습니다.");
+            sqlSession.rollback();
+        }
+        sqlSession.close();
+    }
+
+    public void deleteTrain(int trainNo) {
+
+        SqlSession sqlSession = getSqlSession();
+
+        mapper = sqlSession.getMapper(TrainMapper.class);
+
+        int result = mapper.deleteTrain(trainNo);
+
+        if(result > 0) {
+            System.out.println("기차 삭제 성공하셨습니다.");
+            sqlSession.commit();
+        } else {
+            System.out.println("기차 삭제 실패하셨습니다.");
+            sqlSession.rollback();
+        }
+        sqlSession.close();
+    }
 }
+
