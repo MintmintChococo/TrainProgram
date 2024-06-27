@@ -113,8 +113,8 @@ public class Application {
                 case 1: memberService.register(inputMember()); break;
                 case 2: memberService.deleteMember(inputMemberId()); break;
                 case 3: memberService.updateMember(updateMemberById()); break;
-//                case 4: memberService.selectOneMember(); break;
-//                case 5: memberService.selectAllMember(); break;
+                case 4: memberService.selectOneMember(inputMemberId()); break;
+                case 5: memberService.selectAllMember(); break;
             }
         } while (true);
     }
