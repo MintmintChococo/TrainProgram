@@ -159,44 +159,50 @@ public class Application {
                     trainService.modifyTrain(inputChangeInfoTrain());
                     break;
                 case 5:
-                    trainService.deleteTrain(inputTrainNo());
+                    trainService.deleteTrain(inputScNo());
                     break;
 
             }
         } while (true);
     }
 
-    private static int inputTrainNo() {
+    private static int inputScNo() {
 
         Scanner sc = new Scanner(System.in);
-        System.out.println("기차 번호를 입력하세요 : ");
-        int trainNo = sc.nextInt();
+        System.out.println("운행번호를 입력하세요 : ");
+        int scNo = sc.nextInt();
 
-        return trainNo;
+        return scNo;
     }
 
     private static TrainDTO inputChangeInfoTrain() {
 
         Scanner sc = new Scanner(System.in);
-        System.out.println("변경할 기차 번호를 입력하세요 : ");
-        int trainNo = sc.nextInt();
+        System.out.println("변경할 운행 번호를 입력하세요 : ");
+        int scNo = sc.nextInt();
         System.out.println("변경할 기차명을 입력하세요 : ");
         sc.nextLine();
         String trainName = sc.nextLine();
-        System.out.println("변경할 지역을 입력하세요 : ");
-        String tourArea = sc.nextLine();
+        System.out.println("변경할 출발지를 입력하세요 : ");
+        String departure = sc.nextLine();
+        System.out.println("변경할 목적지를 입력하세요 : ");
+        String arrival = sc.nextLine();
         System.out.println("변경할 출발 시간을 입력하세요 : ");
-        String time = sc.nextLine();
+        String dTime = sc.nextLine();
+        System.out.println("변경할 도착 시간을 입력하세요 : ");
+        String aTime = sc.nextLine();
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("H:mm");
-
-        LocalTime startTime = LocalTime.parse(time, dateTimeFormatter);
+        LocalTime depTime = LocalTime.parse(dTime, dateTimeFormatter);
+        LocalTime arrivalTime = LocalTime.parse(aTime, dateTimeFormatter);
 
         TrainDTO train = new TrainDTO();
-        train.setTrainNo(trainNo);
+        train.setScNo(scNo);
         train.setTrainName(trainName);
-        train.setTourArea(tourArea);
-        train.setStartTime(startTime);
+        train.setDeparture(departure);
+        train.setArrival(arrival);
+        train.setDepTime(depTime);
+        train.setArrivalTime(arrivalTime);
 
         return train;
     }
@@ -206,19 +212,26 @@ public class Application {
         Scanner sc = new Scanner(System.in);
         System.out.println("추가할 기차명을 입력하세요 : ");
         String trainName = sc.nextLine();
-        System.out.println("추가할 지역을 입력하세요 : ");
-        String tourArea = sc.nextLine();
-        System.out.println("추가할 시간을 입력하세요(HH:mm) : ");
-        String time = sc.nextLine();
+        System.out.println("추가할 출발지역을 입력하세요 : ");
+        String departure = sc.nextLine();
+        System.out.println("추가할 도착지역을 입력하세요 : ");
+        String arrival = sc.nextLine();
+        System.out.println("추가할 출발시간을 입력하세요(HH:mm) : ");
+        String dtime = sc.nextLine();
+        System.out.println("추가할 도착시간을 입력하세요(HH:mm) : ");
+        String atime = sc.nextLine();
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("H:mm");
 
-        LocalTime startTime = LocalTime.parse(time, dateTimeFormatter);
+        LocalTime depTime = LocalTime.parse(dtime, dateTimeFormatter);
+        LocalTime arrivalTime = LocalTime.parse(atime, dateTimeFormatter);
 
         TrainDTO train = new TrainDTO();
         train.setTrainName(trainName);
-        train.setTourArea(tourArea);
-        train.setStartTime(startTime);
+        train.setDeparture(departure);
+        train.setArrival(arrival);
+        train.setDepTime(depTime);
+        train.setArrivalTime(arrivalTime);
 
         return train;
     }
@@ -226,10 +239,11 @@ public class Application {
     private static SearchCriteria inputSearchCriteria() {
 
         Scanner sc = new Scanner(System.in);
-        System.out.println("검색 기준을 입력해주세요.(time or area) : ");
+        System.out.println("검색 기준을 입력해주세요.(time or departure or arrival) : ");
         String condition = sc.nextLine();
-        System.out.println("검색어를 입력해주세요. : ");
+        System.out.println("검색어 입력해주세요. : ");
         String value = sc.nextLine();
+
 
         return new SearchCriteria(condition, value);
     }

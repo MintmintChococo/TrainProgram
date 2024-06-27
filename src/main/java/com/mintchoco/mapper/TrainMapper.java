@@ -15,5 +15,5 @@ public interface TrainMapper {
 
     int modifyTrain(TrainDTO train);
 
-    int deleteTrain(int trainNo);
+    int deleteTrain(int scNo);
 }

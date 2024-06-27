@@ -5,51 +5,64 @@
 <mapper namespace="com.mintchoco.mapper.TrainMapper">
 
     <resultMap id="trainResultMap1" type="com.mintchoco.common.TrainDTO">
-        <id property="trainNo" column="train_no"/>
+        <id property="scNo" column="sc_no"/>
         <result property="trainName" column="train_name"/>
-        <result property="tourArea" column="tour_area"/>
-        <result property="startTime" column="start_time"/>
+        <result property="departure" column="departure"/>
+        <result property="arrival" column="arrival"/>
+        <result property="depTime" column="dep_time"/>
+        <result property="arrivalTime" column="arrival_time"/>
     </resultMap>
     <sql id="columns">
-        train_no,
+        sc_no,
         train_name,
-        tour_area,
-        start_time
+        departure,
+        arrival,
+        dep_time,
+        arrival_time
     </sql>
     <select id="selectAllTrain" resultMap="trainResultMap1">
         select
         <include refid="columns"/>
         from
-        train
+        schedule
     </select>
 
-    <select id="searchTrainByTimeOrArea" parameterType="com.mintchoco.common.SearchCriteria" resultMap="trainResultMap1">
+    <select id="searchTrainByTimeOrArea" parameterType="hashmap" resultMap="trainResultMap1">
         select
-        train_no,
+        sc_no,
         train_name,
-        tour_area,
-        start_time
+        departure,
+        arrival,
+        dep_time,
+        arrival_time
         from
-        train
+        schedule
         <if test="condition == 'time'">
             where
             train_name like concat('%', #{ value }, '%')
         </if>
-        <if test="condition == 'area'">
-            where tour_area like concat('%', #{ value }, '%')
+        <if test="condition == 'departure'">
+            where departure like concat('%', #{ value }, '%')
         </if>
-        order by train_no
+        <if test="condition == 'arrival'">
+            where arrival like concat('%', #{ value }, '%')
+        </if>
+        order by sc_no
     </select>
 
     <insert id="insertTrain" parameterType="com.mintchoco.common.TrainDTO">
-        insert into train(
+        insert into schedule(
         train_name,
-        tour_area,
-        start_time
+        departure,
+        arrival,
+        dep_time,
+        arrival_time
         ) values (
         #{ trainName },
-        #{ tourArea },
-        #{ startTime }
+        #{ departure },
+        #{ arrival },
+        #{ depTime },
+        #{ arrivalTime }
         )
     </insert>
 
@@ -70,25 +83,31 @@
 <!--        </set>-->
 <!--        where train_no = #{ trainNo }-->
         update
-        train
+        schedule
         <trim prefix="set" prefixOverrides="," suffixOverrides=",">
             <if test="trainName != null and trainName != ''">
                 train_name = #{ trainName },
             </if>
-            <if test="tourArea != null and tourArea != ''">
-                tour_area = #{ tourArea },
+            <if test="departure != null and departure != ''">
+                departure = #{ departure },
             </if>
-            <if test="startTime != null">
-                start_time = #{ startTime }
+            <if test="arrival != null and arrival != ''">
+                arrival = #{ arrival },
+            </if>
+            <if test="depTime != null">
+                dep_time = #{ depTime },
+            </if>
+            <if test="arrivalTime != null">
+                arrival_time = #{ arrivalTime }
             </if>
         </trim>
-        where train_no = #{ trainNo }
+        where sc_no = #{ scNo }
     </update>
 
     <delete id="deleteTrain" parameterType="_int">
         delete
         from
-        train
-        where train_no = #{ trainNo }
+        schedule
+        where sc_no = #{ scNo }
     </delete>
 </mapper>

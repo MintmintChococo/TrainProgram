@@ -11,9 +11,11 @@ import java.time.LocalTime;
 @ToString
 public class TrainDTO {
 
-    private int trainNo;
+    private int scNo;
     private String trainName;
-    private String tourArea;
-    private LocalTime startTime;
+    private String departure;
+    private String arrival;
+    private LocalTime depTime;
+    private LocalTime arrivalTime;
 
 }
