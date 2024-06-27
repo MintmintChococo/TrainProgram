@@ -2,15 +2,12 @@ package com.mintchoco.mapper;
 
 import com.mintchoco.common.SearchCriteria;
 import com.mintchoco.common.MemberDTO;
-
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.HashMap;
 import java.util.Map;
-
 import com.mintchoco.common.TrainDTO;
-
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -154,20 +151,16 @@ public class Application {
             int no = sc.nextInt();
 
             switch (no) {
-                case 1:
-                    memberService.register(inputmember());
-                    break;
-                case 2:
-                    memberService.deleteMember(inputmemberid());
-                    break;
-//                case 3: memberService.updateMember(); break;
+                case 1: memberService.register(inputMember()); break;
+                case 2: memberService.deleteMember(inputMemberId()); break;
+                case 3: memberService.updateMember(updateMemberById()); break;
 //                case 4: memberService.selectOneMember(); break;
 //                case 5: memberService.selectAllMember(); break;
             }
         } while (true);
     }
 
-    private static MemberDTO inputmember() {
+    private static MemberDTO inputMember() {
 
         Scanner sc = new Scanner(System.in);
 
@@ -190,7 +183,7 @@ public class Application {
         return member;
     }
 
-    private static Map<String, String> inputmemberid() {
+    private static Map<String, String> inputMemberId() {
 
         Scanner sc = new Scanner(System.in);
         System.out.print("회원 아이디를 입력하세요 : ");
@@ -200,6 +193,34 @@ public class Application {
         parameter.put("memID", memID);
 
         return parameter;
+    }
+
+    private static Map<String, String> updateMemberById() {
+
+        Scanner sc = new Scanner(System.in);
+
+//        System.out.println("회원정보를 수정하기 위해 회원 인증을 시도합니다...");
+//        System.out.print("회원 아이디를 입력해주세요 : ");
+//        String ID = sc.next();
+//        System.out.print("회원 비밀번호를 입력해주세요 : ");
+//        String PWD = sc.next();
+
+        System.out.print("회원 아이디를 입력해주세요 : ");
+        String ID = sc.nextLine();
+        System.out.print("수정할 회원 이름을 입력해주세요 : ");
+        String name = sc.nextLine();
+        System.out.print("수정할 회원 전화번호를 입력해주세요 : ");
+        String num = sc.nextLine();
+        System.out.print("수정할 회원 비밀번호를 입력해주세요 : ");
+        String PWD = sc.nextLine();
+
+        Map<String, String> criteria = new HashMap<>();
+        criteria.put("ID",ID);
+        criteria.put("name",name);
+        criteria.put("num",num);
+        criteria.put("PWD",PWD);
+
+        return criteria;
     }
 }
 
