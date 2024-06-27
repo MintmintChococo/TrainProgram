@@ -53,4 +53,35 @@
         )
     </insert>
 
+    <update id="modifyTrain" parameterType="com.mintchoco.common.TrainDTO">
+<!--        update-->
+<!--        train-->
+<!--        <set>-->
+<!--            <if test="trainName != null and trainName != ''">-->
+<!--                train_name = #{ trainName },-->
+<!--            </if>-->
+<!--            <if test="tourArea != null and tourArea != ''">-->
+<!--                tour_area = #{ tourArea },-->
+<!--            </if>-->
+<!--&lt;!&ndash; LocalTime은 문자열이 아니므로 문자열 비교를 빼야함. 마이바티스 내부적으로 시간타입을 비교할때 문제가 생기는것 같네요 &ndash;&gt;-->
+<!--            <if test="startTime != null">-->
+<!--                start_time = #{ startTime }-->
+<!--            </if>-->
+<!--        </set>-->
+<!--        where train_no = #{ trainNo }-->
+        update
+        train
+        <trim prefix="set" prefixOverrides="," suffixOverrides=",">
+            <if test="trainName != null and trainName != ''">
+                train_name = #{ trainName },
+            </if>
+            <if test="tourArea != null and tourArea != ''">
+                tour_area = #{ tourArea },
+            </if>
+            <if test="startTime != null">
+                start_time = #{ startTime }
+            </if>
+        </trim>
+        where train_no = #{ trainNo }
+    </update>
 </mapper>

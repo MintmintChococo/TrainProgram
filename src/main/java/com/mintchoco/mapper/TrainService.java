@@ -27,8 +27,8 @@ public class TrainService {
 
 
         for (TrainDTO train : trainList) {
-            Time time = train.getStartTime();
-            LocalTime localTime = time.toLocalTime();
+
+            LocalTime localTime = train.getStartTime();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
             String formattedTime = localTime.format(formatter);
@@ -50,8 +50,8 @@ public class TrainService {
 
         if(searchCriteria.getCondition().equals("time")) {
             for(TrainDTO train : trainList) {
-                Time time = train.getStartTime();
-                LocalTime localTime = time.toLocalTime();
+
+                LocalTime localTime = train.getStartTime();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
                 String formattedTime = localTime.format(formatter);
@@ -71,6 +71,8 @@ public class TrainService {
 
         SqlSession sqlSession = getSqlSession();
 
+        System.out.println(train.getStartTime());
+
         mapper = sqlSession.getMapper(TrainMapper.class);
 
         int result = mapper.insertTrain(train);
@@ -86,13 +88,13 @@ public class TrainService {
         sqlSession.close();
     }
 
-    public void modifyTrain(Map<String, Object> criteria) {
+    public void modifyTrain(TrainDTO train) {
 
         SqlSession sqlSession = getSqlSession();
 
         mapper = sqlSession.getMapper(TrainMapper.class);
 
-        int result = mapper.modifyTrain(criteria);
+        int result = mapper.modifyTrain(train);
 
         if(result > 0) {
             System.out.println("기차 정보 변경에 성공하셨습니다.");

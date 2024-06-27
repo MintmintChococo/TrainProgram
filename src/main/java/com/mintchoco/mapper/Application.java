@@ -2,9 +2,15 @@ package com.mintchoco.mapper;
 
 import com.mintchoco.common.SearchCriteria;
 import com.mintchoco.common.MemberDTO;
+
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.HashMap;
 import java.util.Map;
+
 import com.mintchoco.common.TrainDTO;
+
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,9 +33,14 @@ public class Application {
 
             switch (no) {
 
-                case 1: memberSubMenu(); break;
-                case 2: trainSubMenu(); break;
-                case 3: break;
+                case 1:
+                    memberSubMenu();
+                    break;
+                case 2:
+                    trainSubMenu();
+                    break;
+                case 3:
+                    break;
             }
         } while (true);
     }
@@ -48,35 +59,49 @@ public class Application {
             int no = sc.nextInt();
 
             switch (no) {
-                case 1: trainService.selectAllTrain(); break;
-                case 2: trainService.searchTrainByTimeOrArea(inputSearchCriteria()); break;
-                case 3: trainService.insertTrain(inputTrain()); break;
-                case 4: trainService.modifyTrain(inputChangeInfoTrain()); break;
-                case 5: break;
+                case 1:
+                    trainService.selectAllTrain();
+                    break;
+                case 2:
+                    trainService.searchTrainByTimeOrArea(inputSearchCriteria());
+                    break;
+                case 3:
+                    trainService.insertTrain(inputTrain());
+                    break;
+                case 4:
+                    trainService.modifyTrain(inputChangeInfoTrain());
+                    break;
+                case 5:
+                    break;
 
             }
         } while (true);
     }
 
-    private static Map<String, Object> inputChangeInfoTrain() {
+    private static TrainDTO inputChangeInfoTrain() {
 
         Scanner sc = new Scanner(System.in);
         System.out.println("변경할 기차 번호를 입력하세요 : ");
-        String trainNo = sc.nextLine();
+        int trainNo = sc.nextInt();
         System.out.println("변경할 기차명을 입력하세요 : ");
+        sc.nextLine();
         String trainName = sc.nextLine();
         System.out.println("변경할 지역을 입력하세요 : ");
         String tourArea = sc.nextLine();
         System.out.println("변경할 출발 시간을 입력하세요 : ");
-        String startTime = sc.nextLine();
+        String time = sc.nextLine();
 
-        Map<String, Object> criteria = new HashMap<>();
-        criteria.put("trainNo", trainNo);
-        criteria.put("trainName", trainName);
-        criteria.put("tourArea", tourArea);
-        criteria.put("startTime", startTime);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("H:mm");
 
-        return criteria;
+        LocalTime startTime = LocalTime.parse(time, dateTimeFormatter);
+
+        TrainDTO train = new TrainDTO();
+        train.setTrainNo(trainNo);
+        train.setTrainName(trainName);
+        train.setTourArea(tourArea);
+        train.setStartTime(startTime);
+
+        return train;
     }
 
     private static TrainDTO inputTrain() {
@@ -87,13 +112,11 @@ public class Application {
         System.out.println("추가할 지역을 입력하세요 : ");
         String tourArea = sc.nextLine();
         System.out.println("추가할 시간을 입력하세요(HH:mm) : ");
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        Time startTime = null;
-        try {
-            startTime = new Time(sdf.parse(sc.nextLine()).getTime());
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        String time = sc.nextLine();
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("H:mm");
+
+        LocalTime startTime = LocalTime.parse(time, dateTimeFormatter);
 
         TrainDTO train = new TrainDTO();
         train.setTrainName(trainName);
@@ -120,7 +143,7 @@ public class Application {
 
         MemberService memberService = new MemberService();
 
-        do{
+        do {
             System.out.println("=============== 회원관리 메뉴 ===============");
             System.out.println("1. 회원가입");
             System.out.println("2. 회원 탈퇴");
@@ -131,8 +154,12 @@ public class Application {
             int no = sc.nextInt();
 
             switch (no) {
-                case 1: memberService.register(inputmember()); break;
-                case 2: memberService.deleteMember(inputmemberid()); break;
+                case 1:
+                    memberService.register(inputmember());
+                    break;
+                case 2:
+                    memberService.deleteMember(inputmemberid());
+                    break;
 //                case 3: memberService.updateMember(); break;
 //                case 4: memberService.selectOneMember(); break;
 //                case 5: memberService.selectAllMember(); break;
