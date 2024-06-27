@@ -16,5 +16,4 @@ public class TicketDTO {
     private String departure;
     private String arrival;
     private String time;
-
 }
