@@ -2,7 +2,7 @@ package com.mintchoco.common;
 
 import lombok.*;
 
-import java.sql.Time;
+import java.time.LocalTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,6 +14,6 @@ public class TrainDTO {
     private int trainNo;
     private String trainName;
     private String tourArea;
-    private Time startTime;
+    private LocalTime startTime;
 
 }
