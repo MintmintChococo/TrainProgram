@@ -54,4 +54,27 @@
         </set>
         where mem_id = #{ ID }
     </update>
+
+<!-- 4. 단일 회원 정보 조회 -->
+    <select id="selectOneMember" parameterType="String" resultMap="Member1">
+        select
+        mem_no,
+        mem_name,
+        mem_num,
+        mem_id,
+        mem_pwd
+        from member
+        where mem_id = #{ memberID }
+    </select>
+    
+<!-- 5. 전체 회원 정보 조회 -->
+    <select id="selectAllMember" resultMap="Member1">
+        select
+        mem_no,
+        mem_name,
+        mem_num,
+        mem_id,
+        mem_pwd
+        from member
+    </select>
 </mapper>

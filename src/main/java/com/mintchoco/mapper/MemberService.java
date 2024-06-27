@@ -3,6 +3,7 @@ package com.mintchoco.mapper;
 import com.mintchoco.common.MemberDTO;
 import org.apache.ibatis.session.SqlSession;
 
+import java.util.List;
 import java.util.Map;
 
 import static com.mintchoco.common.Template.getSqlSession;
@@ -68,9 +69,51 @@ public class MemberService {
         sqlSession.close();
     }
 
-    public void selectOneMember() {
+    public void selectOneMember(Map<String, String> memberID) {
+
+        SqlSession sqlSession = getSqlSession();
+        mapper = sqlSession.getMapper(MemberMapper.class);
+
+        String memID = memberID.get("memID");
+
+        MemberDTO member = mapper.selectOneMember(memID);
+
+        // view
+        if(member != null) {
+
+            System.out.println("회원 정보 조회에 성공하셨습니다.");
+            System.out.println(member);
+            sqlSession.commit();
+
+        } else {
+            System.out.println("회원 정보 조회에 실패하셨습니다.");
+            sqlSession.rollback();
+        }
+
+        sqlSession.close();
     }
 
     public void selectAllMember() {
+
+        SqlSession sqlSession = getSqlSession();
+        mapper = sqlSession.getMapper(MemberMapper.class);
+
+        List<MemberDTO> memberList = mapper.selectAllMember();
+
+        // view
+        if(memberList != null) {
+
+            System.out.println("회원 정보 조회에 성공하셨습니다.");
+            for(MemberDTO mem : memberList) {
+                System.out.println(mem);
+            }
+            sqlSession.commit();
+
+        } else {
+            System.out.println("회원 정보 조회에 실패하셨습니다.");
+            sqlSession.rollback();
+        }
+
+        sqlSession.close();
     }
 }
