@@ -17,7 +17,7 @@ public class TrainService {
 
     private TrainMapper mapper;
 
-    public void selectAllTrain() {
+    public List<TrainDTO> selectAllTrain() {
 
         SqlSession sqlSession = getSqlSession();
 
@@ -25,24 +25,12 @@ public class TrainService {
 
         List<TrainDTO> trainList = mapper.selectAllTrain();
 
-
-        for (TrainDTO train : trainList) {
-
-            LocalTime depTime = train.getDepTime();
-            LocalTime arrivalTime = train.getArrivalTime();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-
-            String formattedTime = depTime.format(formatter);
-            String formattedTime2 = arrivalTime.format(formatter);
-
-            System.out.println("운행번호:" + train.getScNo()
-                    + " 기차명:" + train.getTrainName() + " 출발지:" + train.getDeparture() + " 목적지:" + train.getArrival() +
-                     " 출발시간-" + formattedTime + " 도착시간-" + formattedTime2);
-        }
         sqlSession.close();
+
+        return trainList;
     }
 
-    public void searchTrainByTimeOrArea(SearchCriteria searchCriteria) {
+    public List<TrainDTO> searchTrainByTimeOrArea(SearchCriteria searchCriteria) {
 
         SqlSession sqlSession = getSqlSession();
 
@@ -50,34 +38,12 @@ public class TrainService {
 
         List<TrainDTO> trainList = mapper.searchTrainByTimeOrArea(searchCriteria);
 
-
-        if (searchCriteria.getCondition().equals("time")) {
-            for (TrainDTO train : trainList) {
-
-                LocalTime depTime = train.getDepTime();
-                LocalTime arrivalTime = train.getArrivalTime();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-
-                String formattedTime = depTime.format(formatter);
-                String formattedTime2 = arrivalTime.format(formatter);
-
-                System.out.println("기차명:" + train.getTrainName() + " 출발시간-" + formattedTime + "도착시간-" + formattedTime2);
-            }
-        } else if (searchCriteria.getCondition().equals("departure")) {
-            for (TrainDTO train : trainList) {
-                System.out.println("기차명:" + train.getTrainName() + " 출발지:" + train.getDeparture());
-            }
-        } else if (searchCriteria.getCondition().equals("arrival")) {
-            for (TrainDTO train : trainList) {
-                System.out.println("기차명:" + train.getTrainName() + " 목적지:" + train.getArrival());
-            }
-        } else {
-            System.out.println("검색 결과가 존재하지 않습니다.");
-        }
         sqlSession.close();
+
+        return trainList;
     }
 
-    public void insertTrain(TrainDTO train) {
+    public boolean insertTrain(TrainDTO train) {
 
         SqlSession sqlSession = getSqlSession();
 
@@ -86,17 +52,17 @@ public class TrainService {
         int result = mapper.insertTrain(train);
 
         if(result > 0) {
-            System.out.println("기차 추가 성공");
             sqlSession.commit();
         } else {
-            System.out.println("기차 추가 실패");
             sqlSession.rollback();
         }
 
         sqlSession.close();
+
+        return result > 0;
     }
 
-    public void modifyTrain(TrainDTO train) {
+    public boolean modifyTrain(TrainDTO train) {
 
         SqlSession sqlSession = getSqlSession();
 
@@ -105,16 +71,16 @@ public class TrainService {
         int result = mapper.modifyTrain(train);
 
         if(result > 0) {
-            System.out.println("기차 정보 변경에 성공하셨습니다.");
             sqlSession.commit();
         } else {
-            System.out.println("기차 정보 변경에 실패하셨습니다.");
             sqlSession.rollback();
         }
         sqlSession.close();
+
+        return result > 0;
     }
 
-    public void deleteTrain(int scNo) {
+    public int deleteTrain(int scNo) {
 
         SqlSession sqlSession = getSqlSession();
 
@@ -123,13 +89,13 @@ public class TrainService {
         int result = mapper.deleteTrain(scNo);
 
         if(result > 0) {
-            System.out.println("기차 정보 삭제 성공하셨습니다.");
             sqlSession.commit();
         } else {
-            System.out.println("기차 삭제 실패하셨습니다.");
             sqlSession.rollback();
         }
         sqlSession.close();
+
+        return result;
     }
 }
 

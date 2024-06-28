@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.util.HashMap;
 import java.util.Map;
 import com.mintchoco.common.TrainDTO;
+import com.mintchoco.mapper.controller.TrainController;
 import com.mintchoco.mapper.controller.MemberController;
-
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -134,7 +134,7 @@ public class Application {
 
     private static void trainSubMenu() {
         Scanner sc = new Scanner(System.in);
-        TrainService trainService = new TrainService();
+        TrainController trainController = new TrainController();
 
         do {
             System.out.println("1. 전체 기차 정보 조회 ");
@@ -147,19 +147,19 @@ public class Application {
 
             switch (no) {
                 case 1:
-                    trainService.selectAllTrain();
+                    trainController.selectAllTrain();
                     break;
                 case 2:
-                    trainService.searchTrainByTimeOrArea(inputSearchCriteria());
+                    trainController.searchTrainByTimeOrArea(inputSearchCriteria());
                     break;
                 case 3:
-                    trainService.insertTrain(inputTrain());
+                    trainController.insertTrain(inputTrain());
                     break;
                 case 4:
-                    trainService.modifyTrain(inputChangeInfoTrain());
+                    trainController.modifyTrain(inputChangeInfoTrain());
                     break;
                 case 5:
-                    trainService.deleteTrain(inputScNo());
+                    trainController.deleteTrain(inputScNo());
                     break;
 
             }
