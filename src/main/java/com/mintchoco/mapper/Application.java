@@ -7,7 +7,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.HashMap;
 import java.util.Map;
+import com.mintchoco.common.TicketDTO;
 import com.mintchoco.common.TrainDTO;
+import com.mintchoco.mapper.controller.TicketController;
 import com.mintchoco.mapper.controller.TrainController;
 import com.mintchoco.mapper.controller.MemberController;
 import java.sql.Time;
@@ -38,9 +40,55 @@ public class Application {
                     trainSubMenu();
                     break;
                 case 3:
+                    ticketSubMenu();
                     break;
             }
         } while (true);
+    }
+
+    private static void ticketSubMenu() {
+
+        Scanner sc = new Scanner(System.in);
+
+        TicketController ticketController = new TicketController();
+
+        do {
+            System.out.println("============ 티켓 예매내역 확인 메뉴 ============");
+            System.out.println("1. 티켓 전체 조회");
+            System.out.println("2. 티켓 구매");
+            System.out.println("3. 예매 내역 수정");
+            System.out.println("4. 티켓 환불");
+            System.out.println("메뉴 번호를 입력하세요 : ");
+            int no = sc.nextInt();
+
+            switch (no) {
+//                case 1:
+//                    ticketController.selectAllTicket(); break;
+                case 2:
+                    ticketController.registTicket(inputTicket()); break;
+
+            }
+        } while (true);
+    }
+
+    private static TicketDTO inputTicket() {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("회원번호를 입력하세요 : ");
+        int memNo = sc.nextInt();
+        System.out.println("운행번호를 확인하세요 : ");
+        sc.nextLine();
+        int scNo = sc.nextInt();
+        System.out.println("좌석번호를 입력하세요 : ");
+        sc.nextLine();
+        String seatNo = sc.nextLine();
+
+        TicketDTO ticket = new TicketDTO();
+        ticket.setMemNo(memNo);
+        ticket.setScNo(scNo);
+        ticket.setSeatNo(seatNo);
+
+        return ticket;
     }
 
     private static void memberSubMenu() {

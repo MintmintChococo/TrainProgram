@@ -10,11 +10,9 @@ import lombok.*;
 public class TicketDTO {
 
     private int ticketNO;
-    private int MemberNO;
-    private int trainNO;
-    private String seatNO;
-    private String departure;
-    private String arrival;
-    private String time;
+    private int memNo;
+    private int scNo;
+    private String seatNo;
+
 
 }
