@@ -4,18 +4,13 @@ import com.mintchoco.common.SearchCriteria;
 import com.mintchoco.common.MemberDTO;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.HashMap;
 import java.util.Map;
 import com.mintchoco.common.TicketDTO;
 import com.mintchoco.common.TrainDTO;
-import com.mintchoco.mapper.controller.TicketController;
-import com.mintchoco.mapper.controller.TrainController;
-import com.mintchoco.mapper.controller.MemberController;
-import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import com.mintchoco.controller.TicketController;
 import com.mintchoco.controller.MemberController;
+import com.mintchoco.controller.TrainController;
 
 import java.util.Scanner;
 
