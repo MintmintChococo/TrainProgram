@@ -6,6 +6,8 @@ import com.mintchoco.view.TicketPrintResult;
 
 import java.util.Scanner;
 
+import static com.mintchoco.controller.MemberController.loggedInMember;
+
 public class TicketController {
 
     private final TicketPrintResult ticketPrintResult;
@@ -32,6 +34,18 @@ public class TicketController {
 
         Scanner sc = new Scanner(System.in);
 
+        System.out.print("정말로 환불하시겠습니까? (Y/N) : ");
+        String really = sc.next();
+
+        if (really.equals("Y")) {
+            boolean result = ticketService.deleteTicket(loggedInMember);
+
+            if(result) {
+                ticketPrintResult.printSuccessMessage("delete");
+            } else {
+                ticketPrintResult.printErrorMessage("delete");
+            }
+        }
 
     }
 }

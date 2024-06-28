@@ -22,4 +22,10 @@
         #{ seatNo }
         )
     </insert>
+
+    <delete id="deleteTicket" parameterType="MemberDTO">
+        delete
+        from ticket
+        where mem_no = #{ memberNO }
+    </delete>
 </mapper>
