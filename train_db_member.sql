@@ -30,7 +30,7 @@ CREATE TABLE `member` (
   `mem_pwd` varchar(255) NOT NULL COMMENT '회원 password',
   PRIMARY KEY (`mem_no`),
   UNIQUE KEY `member_PK` (`mem_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='회원';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='회원';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `member` (
 
 LOCK TABLES `member` WRITE;
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` VALUES (1,'황춘식','010-3475-8956','chun01','chunsigi123'),(2,'지동현','010-1234-5555','dong01','dongdong123'),(3,'홍길동','010-7777-7777','hong01','gildong123'),(4,'구구단','010-9999-9999','gugu01','gu9999');
+INSERT INTO `member` VALUES (1,'관리자','010-0000-0000','admin','admin123'),(2,'지동현','010-1234-5555','dong01','dongdong123'),(3,'홍길동','010-7777-7777','hong01','gildong123'),(4,'구구단','010-9999-9999','gugu01','gu9999'),(5,'황춘식','010-3475-8956','chun01','chunsigi123');
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

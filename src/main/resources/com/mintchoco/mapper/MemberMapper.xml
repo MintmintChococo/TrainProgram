@@ -77,4 +77,16 @@
         mem_pwd
         from member
     </select>
+
+<!-- 6. 로그인 -->
+    <select id="logIn" parameterType="hashmap" resultMap="Member1">
+        select
+        mem_no,
+        mem_name,
+        mem_num,
+        mem_id,
+        mem_pwd
+        from member
+        where mem_id = #{ ID } and mem_pwd = #{ PWD }
+    </select>
 </mapper>

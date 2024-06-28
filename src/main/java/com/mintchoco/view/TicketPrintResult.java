@@ -1,4 +1,4 @@
-package com.mintchoco.common.view;
+package com.mintchoco.view;
 
 public class TicketPrintResult {
 

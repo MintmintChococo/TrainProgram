@@ -1,7 +1,6 @@
 package com.mintchoco.mapper;
 
 import com.mintchoco.common.MemberDTO;
-import com.mintchoco.common.view.MemberPrintResult;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -90,5 +89,17 @@ public class MemberService {
         sqlSession.close();
 
         return memberList;
+    }
+
+    public MemberDTO logIn(Map<String, String> parameter) {
+
+        SqlSession sqlSession = getSqlSession();
+        mapper = sqlSession.getMapper(MemberMapper.class);
+
+        MemberDTO member = mapper.logIn(parameter);
+
+        sqlSession.close();
+
+        return member;
     }
 }

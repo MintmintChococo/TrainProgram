@@ -4,31 +4,52 @@ import com.mintchoco.common.SearchCriteria;
 import com.mintchoco.common.MemberDTO;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.HashMap;
 import java.util.Map;
 import com.mintchoco.common.TicketDTO;
 import com.mintchoco.common.TrainDTO;
-import com.mintchoco.mapper.controller.TicketController;
-import com.mintchoco.mapper.controller.TrainController;
-import com.mintchoco.mapper.controller.MemberController;
-import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import com.mintchoco.controller.TicketController;
+import com.mintchoco.controller.MemberController;
+import com.mintchoco.controller.TrainController;
+
 import java.util.Scanner;
+
+import static com.mintchoco.controller.MemberController.loggedInMember;
 
 public class Application {
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
+        MemberDTO member = new MemberDTO();
+        MemberController memberController = new MemberController();
+
+        System.out.println("=========== 민초레일 사이트를 방문해주셔셔 감사합니다~~ :) ===========");
+        do{
+            System.out.println("1. 기존 회원으로 로그인하기");
+            System.out.println("2. 회원 가입");
+            System.out.print("번호를 입력하세요 : ");
+            int option = sc.nextInt();
+
+            switch (option) {
+                case 1:
+                    member = memberController.logIn(inputMemberIdAndPWD());
+                    memberController.setLoginInfo(member);
+                    break;
+
+                case 2: memberController.register(inputMember()); break;
+            }
+
+        } while(member.getMemberID() == null);
+
 
         do {
             System.out.println("=========== 민초레일 운행 사이트 ===========");
-            System.out.println("1. 회원");
+            System.out.println("무엇을 도와드릴까요?");
+            System.out.println("1. 회원 관리(가입, 탈퇴, 수정, 조회) ");
             System.out.println("2. 기차");
             System.out.println("3. 예매티켓");
-            System.out.println("번호를 입력하세요 : ");
+            System.out.print("번호를 입력하세요 : ");
             int no = sc.nextInt();
 
             switch (no) {
@@ -44,51 +65,6 @@ public class Application {
                     break;
             }
         } while (true);
-    }
-
-    private static void ticketSubMenu() {
-
-        Scanner sc = new Scanner(System.in);
-
-        TicketController ticketController = new TicketController();
-
-        do {
-            System.out.println("============ 티켓 예매내역 확인 메뉴 ============");
-            System.out.println("1. 티켓 전체 조회");
-            System.out.println("2. 티켓 구매");
-            System.out.println("3. 예매 내역 수정");
-            System.out.println("4. 티켓 환불");
-            System.out.println("메뉴 번호를 입력하세요 : ");
-            int no = sc.nextInt();
-
-            switch (no) {
-//                case 1:
-//                    ticketController.selectAllTicket(); break;
-                case 2:
-                    ticketController.registTicket(inputTicket()); break;
-
-            }
-        } while (true);
-    }
-
-    private static TicketDTO inputTicket() {
-
-        Scanner sc = new Scanner(System.in);
-        System.out.println("회원번호를 입력하세요 : ");
-        int memNo = sc.nextInt();
-        System.out.println("운행번호를 확인하세요 : ");
-        sc.nextLine();
-        int scNo = sc.nextInt();
-        System.out.println("좌석번호를 입력하세요 : ");
-        sc.nextLine();
-        String seatNo = sc.nextLine();
-
-        TicketDTO ticket = new TicketDTO();
-        ticket.setMemNo(memNo);
-        ticket.setScNo(scNo);
-        ticket.setSeatNo(seatNo);
-
-        return ticket;
     }
 
     private static void memberSubMenu() {
@@ -112,7 +88,13 @@ public class Application {
                 case 2: memberController.deleteMember(inputMemberId()); break;
                 case 3: memberController.updateMember(updateMemberById()); break;
                 case 4: memberController.selectOneMember(inputMemberId()); break;
-                case 5: memberController.selectAllMember(); break;
+                case 5:
+                    if (loggedInMember.getMemberName().equals("관리자")) {
+                        memberController.selectAllMember(); break;
+                    } else {
+                        System.out.println("전체 회원 정보 기능은 관리자만 이용 가능합니다!!");
+                        break;
+                    }
             }
         } while (true);
     }
@@ -180,9 +162,26 @@ public class Application {
         return criteria;
     }
 
+    private static Map<String, String> inputMemberIdAndPWD() {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("ID 입력 : ");
+        String ID = sc.next();
+        System.out.print("PWD 입력 : ");
+        String PWD = sc.next();
+
+        Map<String, String> parameter = new HashMap<>();
+        parameter.put("ID", ID);
+        parameter.put("PWD", PWD);
+
+        return parameter;
+    }
+
     private static void trainSubMenu() {
         Scanner sc = new Scanner(System.in);
         TrainController trainController = new TrainController();
+
 
         do {
             System.out.println("1. 전체 기차 정보 조회 ");
@@ -282,6 +281,51 @@ public class Application {
         train.setArrivalTime(arrivalTime);
 
         return train;
+    }
+
+    private static void ticketSubMenu() {
+
+        Scanner sc = new Scanner(System.in);
+
+        TicketController ticketController = new TicketController();
+
+        do {
+            System.out.println("============ 티켓 예매내역 확인 메뉴 ============");
+            System.out.println("1. 티켓 전체 조회");
+            System.out.println("2. 티켓 구매");
+            System.out.println("3. 예매 내역 수정");
+            System.out.println("4. 티켓 환불");
+            System.out.println("메뉴 번호를 입력하세요 : ");
+            int no = sc.nextInt();
+
+            switch (no) {
+//                case 1:
+//                    ticketController.selectAllTicket(); break;
+                case 2:
+                    ticketController.registTicket(inputTicket()); break;
+
+            }
+        } while (true);
+    }
+
+    private static TicketDTO inputTicket() {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("회원번호를 입력하세요 : ");
+        int memNo = sc.nextInt();
+        System.out.println("운행번호를 확인하세요 : ");
+        sc.nextLine();
+        int scNo = sc.nextInt();
+        System.out.println("좌석번호를 입력하세요 : ");
+        sc.nextLine();
+        String seatNo = sc.nextLine();
+
+        TicketDTO ticket = new TicketDTO();
+        ticket.setMemNo(memNo);
+        ticket.setScNo(scNo);
+        ticket.setSeatNo(seatNo);
+
+        return ticket;
     }
 
     private static SearchCriteria inputSearchCriteria() {

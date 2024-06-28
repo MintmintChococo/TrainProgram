@@ -1,9 +1,9 @@
-package com.mintchoco.mapper.controller;
+package com.mintchoco.controller;
 
 import com.mintchoco.common.SearchCriteria;
 import com.mintchoco.common.TrainDTO;
-import com.mintchoco.common.view.TrainPrintResult;
 import com.mintchoco.mapper.TrainService;
+import com.mintchoco.view.TrainPrintResult;
 
 import java.util.List;
 
@@ -47,7 +47,7 @@ public class TrainController {
             printResult.printSuccessMessage("insert");
         } else {
             printResult.printErrorMessage("insert");
-        } 
+        }
     }
 
     public void modifyTrain(TrainDTO trainDTO) {
@@ -70,5 +70,5 @@ public class TrainController {
         } else {
             printResult.printErrorMessage("delete");
         }
-        }
     }
+}

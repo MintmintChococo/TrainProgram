@@ -15,4 +15,6 @@ public interface MemberMapper {
     MemberDTO selectOneMember(String memID);
 
     List<MemberDTO> selectAllMember();
+
+    MemberDTO logIn(Map<String, String> parameter);
 }

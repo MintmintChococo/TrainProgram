@@ -1,4 +1,4 @@
-package com.mintchoco.common.view;
+package com.mintchoco.view;
 
 import com.mintchoco.common.SearchCriteria;
 import com.mintchoco.common.TrainDTO;

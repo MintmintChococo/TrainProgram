@@ -1,8 +1,8 @@
-package com.mintchoco.mapper.controller;
+package com.mintchoco.controller;
 
 import com.mintchoco.common.TicketDTO;
-import com.mintchoco.common.view.TicketPrintResult;
 import com.mintchoco.mapper.TicketService;
+import com.mintchoco.view.TicketPrintResult;
 
 public class TicketController {
 
