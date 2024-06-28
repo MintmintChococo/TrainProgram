@@ -1,5 +1,6 @@
 package com.mintchoco.mapper;
 
+import com.mintchoco.common.MemberDTO;
 import com.mintchoco.common.TicketDTO;
 import org.apache.ibatis.session.SqlSession;
 
@@ -42,6 +43,25 @@ public class TicketService {
         } else {
             sqlSession.rollback();
         }
+        sqlSession.close();
+
+        return result > 0;
+    }
+
+    public boolean deleteTicket(MemberDTO loggedInMember) {
+
+        SqlSession sqlSession = getSqlSession();
+
+        mapper = sqlSession.getMapper(TicketMapper.class);
+
+        int result = mapper.deleteTicket(loggedInMember);
+
+        if(result > 0) {
+            sqlSession.commit();
+        } else {
+            sqlSession.rollback();
+        }
+
         sqlSession.close();
 
         return result > 0;
