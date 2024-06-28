@@ -200,20 +200,15 @@ public class Application {
 
             switch (no) {
                 case 1:
-                    trainController.selectAllTrain();
-                    break;
+                    trainController.selectAllTrain(); break;
                 case 2:
-                    trainController.searchTrainByTimeOrArea(inputSearchCriteria());
-                    break;
+                    trainController.searchTrainByTimeOrArea(inputSearchCriteria()); break;
                 case 3:
-                    trainController.insertTrain(inputTrain());
-                    break;
+                    trainController.insertTrain(inputTrain()); break;
                 case 4:
-                    trainController.modifyTrain(inputChangeInfoTrain());
-                    break;
+                    trainController.modifyTrain(inputChangeInfoTrain()); break;
                 case 5:
-                    trainController.deleteTrain(inputScNo());
-                    break;
+                    trainController.deleteTrain(inputScNo()); break;
 
             }
         } while (true);
@@ -310,14 +305,35 @@ public class Application {
                 case 2:
                     ticketController.registTicket(inputTicket()); break;
                 case 3:
-                    break;
+                    ticketController.updateTicket(inputChangeInfoTicket()); break;
                 case 4:
-                    ticketController.deleteTicket();
-                    break;
+                    ticketController.deleteTicket(); break;
 
 
             }
         } while (true);
+    }
+
+    private static TicketDTO inputChangeInfoTicket() {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("변경할 티켓 번호를 입력하세요 : ");
+        int ticketNo = sc.nextInt();
+        System.out.println("변경할 회원 번호를 입력하세요 : ");
+        int memNo = sc.nextInt();
+        System.out.println("변경할 운행 번호를 입력하세요 : ");
+        int scNo = sc.nextInt();
+        System.out.println("변경할 좌석 번호를 입력하세요 : ");
+        sc.nextLine();
+        String seatNo = sc.nextLine();
+
+        TicketDTO ticket = new TicketDTO();
+        ticket.setTicketNo(ticketNo);
+        ticket.setMemNo(memNo);
+        ticket.setScNo(scNo);
+        ticket.setSeatNo(seatNo);
+
+        return ticket;
     }
 
     private static TicketDTO inputTicket() {

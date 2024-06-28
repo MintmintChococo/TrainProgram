@@ -9,7 +9,7 @@ import lombok.*;
 @ToString
 public class TicketDTO {
 
-    private int ticketNO;
+    private int ticketNo;
     private int memNo;
     private int scNo;
     private String seatNo;

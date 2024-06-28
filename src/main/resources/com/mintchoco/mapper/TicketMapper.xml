@@ -22,4 +22,21 @@
         #{ seatNo }
         )
     </insert>
+
+    <update id="updateTicket" parameterType="com.mintchoco.common.TicketDTO">
+        update
+        ticket
+        <set>
+            <if test="memNo != null">
+                mem_no = #{ memNo },
+            </if>
+            <if test="scNo != null">
+                sc_no = #{ scNo },
+            </if>
+            <if test="seatNo != null and seatNo != ''">
+                seat_no = #{ seatNo }
+            </if>
+        </set>
+        where ticket_no = #{ ticketNo }
+    </update>
 </mapper>
