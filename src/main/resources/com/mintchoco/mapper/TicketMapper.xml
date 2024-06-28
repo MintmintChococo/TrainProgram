@@ -45,4 +45,15 @@
         from ticket
         where mem_no = #{ memberNO }
     </delete>
+
+    <select id="selectTicketByLoggedInMember" parameterType="MemberDTO" resultMap="ticketResultMap">
+        select
+        a.ticket_no,
+        a.mem_no,
+        a.sc_no,
+        a.seat_no
+        from ticket a
+        left join member b on (a.mem_no = b.mem_no)
+        where a.mem_no = #{ memberNO }
+    </select>
 </mapper>

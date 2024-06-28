@@ -16,6 +16,9 @@ import java.util.Scanner;
 
 import static com.mintchoco.controller.MemberController.loggedInMember;
 
+
+
+
 public class Application {
 
     public static void main(String[] args) {
@@ -62,7 +65,7 @@ public class Application {
                                 System.out.println("로그아웃을 진행합니다...");
                                 return;
                             case 0:
-                                System.out.println("프로그램을 종료합니다...");
+                                System.out.println("오늘도 함께한 민초레일 감사합니다.");
                                 break Exit;
                         }
                     } while (true);
@@ -75,6 +78,22 @@ public class Application {
 
         } while(member.getMemberID() == null);
 
+    }
+
+    private static Map<String, String> inputMemberIdAndPWD() {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("ID 입력 : ");
+        String ID = sc.next();
+        System.out.print("PWD 입력 : ");
+        String PWD = sc.next();
+
+        Map<String, String> parameter = new HashMap<>();
+        parameter.put("ID", ID);
+        parameter.put("PWD", PWD);
+
+        return parameter;
     }
 
     private static void memberSubMenu() {
@@ -116,7 +135,6 @@ public class Application {
 
         return loggedInMember.getMemberID().equals("admin") && loggedInMember.getMemberPWD().equals("admin123");
     }
-
 
     private static MemberDTO inputMember() {
 
@@ -179,22 +197,6 @@ public class Application {
         criteria.put("PWD",PWD);
 
         return criteria;
-    }
-
-    private static Map<String, String> inputMemberIdAndPWD() {
-
-        Scanner sc = new Scanner(System.in);
-
-        System.out.print("ID 입력 : ");
-        String ID = sc.next();
-        System.out.print("PWD 입력 : ");
-        String PWD = sc.next();
-
-        Map<String, String> parameter = new HashMap<>();
-        parameter.put("ID", ID);
-        parameter.put("PWD", PWD);
-
-        return parameter;
     }
 
     private static void trainSubMenu() {
@@ -314,10 +316,22 @@ public class Application {
         return train;
     }
 
+    private static SearchCriteria inputSearchCriteria() {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("검색 기준을 입력해주세요.(time or departure or arrival) : ");
+        String condition = sc.nextLine();
+        System.out.println("검색어 입력해주세요. : ");
+        String value = sc.nextLine();
+
+
+        return new SearchCriteria(condition, value);
+    }
+
     private static void ticketSubMenu() {
 
         Scanner sc = new Scanner(System.in);
-
+        TrainController trainController = new TrainController();
         TicketController ticketController = new TicketController();
 
         do {
@@ -331,11 +345,13 @@ public class Application {
             int no = sc.nextInt();
 
             switch (no) {
-//                case 1:
-//                    ticketController.selectAllTicket(); break;
+                case 1:
+                    ticketController.selectAllTicket(); break;
                 case 2:
+                    trainController.selectAllTrain();
                     ticketController.registTicket(inputTicket()); break;
                 case 3:
+                    ticketController.selectTicketByLoggedInMember();
                     ticketController.updateTicket(inputChangeInfoTicket()); break;
                 case 4:
                     ticketController.deleteTicket(); break;
@@ -350,8 +366,7 @@ public class Application {
         Scanner sc = new Scanner(System.in);
         System.out.println("변경할 티켓 번호를 입력하세요 : ");
         int ticketNo = sc.nextInt();
-        System.out.println("변경할 회원 번호를 입력하세요 : ");
-        int memNo = sc.nextInt();
+        int memNo = loggedInMember.getMemberNO();
         System.out.println("변경할 운행 번호를 입력하세요 : ");
         int scNo = sc.nextInt();
         System.out.println("변경할 좌석 번호를 입력하세요 : ");
@@ -370,10 +385,10 @@ public class Application {
     private static TicketDTO inputTicket() {
 
         Scanner sc = new Scanner(System.in);
-        System.out.println("회원번호를 입력하세요 : ");
-        int memNo = sc.nextInt();
+
+        int memNo = loggedInMember.getMemberNO();
+
         System.out.println("운행번호를 확인하세요 : ");
-        sc.nextLine();
         int scNo = sc.nextInt();
         System.out.println("좌석번호를 입력하세요 : ");
         sc.nextLine();
@@ -386,19 +401,4 @@ public class Application {
 
         return ticket;
     }
-
-    private static SearchCriteria inputSearchCriteria() {
-
-        Scanner sc = new Scanner(System.in);
-        System.out.println("검색 기준을 입력해주세요.(time or departure or arrival) : ");
-        String condition = sc.nextLine();
-        System.out.println("검색어 입력해주세요. : ");
-        String value = sc.nextLine();
-
-
-        return new SearchCriteria(condition, value);
-    }
 }
-
-
-

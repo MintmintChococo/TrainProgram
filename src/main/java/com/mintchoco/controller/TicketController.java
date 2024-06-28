@@ -1,8 +1,11 @@
 package com.mintchoco.controller;
 
+import com.mintchoco.common.MemberDTO;
 import com.mintchoco.common.TicketDTO;
 import com.mintchoco.mapper.TicketService;
 import com.mintchoco.view.TicketPrintResult;
+
+import java.util.List;
 import java.util.Scanner;
 
 import static com.mintchoco.controller.MemberController.loggedInMember;
@@ -57,5 +60,16 @@ public class TicketController {
             }
         }
 
+    }
+
+    public void selectTicketByLoggedInMember() {
+
+        List<TicketDTO> ticketList = ticketService.selectTicketByLoggedInMember(loggedInMember);
+
+        if(ticketList != null) {
+            ticketPrintResult.printTicket(ticketList);
+        } else {
+            ticketPrintResult.printErrorMessage("selectOne");
+        }
     }
 }

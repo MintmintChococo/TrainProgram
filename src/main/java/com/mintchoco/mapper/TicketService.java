@@ -4,6 +4,8 @@ import com.mintchoco.common.MemberDTO;
 import com.mintchoco.common.TicketDTO;
 import org.apache.ibatis.session.SqlSession;
 
+import java.util.List;
+
 import static com.mintchoco.common.Template.getSqlSession;
 
 public class TicketService {
@@ -66,4 +68,17 @@ public class TicketService {
 
         return result > 0;
     }
+
+    public List<TicketDTO> selectTicketByLoggedInMember(MemberDTO loggedInMember) {
+
+        SqlSession sqlSession = getSqlSession();
+        mapper = sqlSession.getMapper(TicketMapper.class);
+
+        List<TicketDTO> ticketList = mapper.selectTicketByLoggedInMember(loggedInMember);
+
+        sqlSession.close();
+
+        return ticketList;
+    }
+
 }
