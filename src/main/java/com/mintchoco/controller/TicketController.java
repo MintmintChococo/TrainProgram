@@ -20,6 +20,18 @@ public class TicketController {
         ticketService = new TicketService();
     }
 
+    public void selectAllTicket() {
+
+        List<TicketDTO> ticketList = ticketService.selectAllTicket();
+
+        if(ticketList != null) {
+            ticketPrintResult.printTicketList(ticketList);
+        } else {
+            ticketPrintResult.printErrorMessage("selectList");
+        }
+
+    }
+
     public void registTicket(TicketDTO ticketDTO) {
 
         boolean result = ticketService.registTicket(ticketDTO);

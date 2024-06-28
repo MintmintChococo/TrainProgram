@@ -56,4 +56,13 @@
         left join member b on (a.mem_no = b.mem_no)
         where a.mem_no = #{ memberNO }
     </select>
+
+    <select id="selectAllTicket" resultMap="ticketResultMap">
+        select
+        ticket_no,
+        mem_no,
+        sc_no,
+        seat_no
+        from ticket
+    </select>
 </mapper>

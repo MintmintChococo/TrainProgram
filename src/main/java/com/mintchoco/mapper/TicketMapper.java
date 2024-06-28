@@ -14,4 +14,6 @@ public interface TicketMapper {
     int deleteTicket(MemberDTO loggedInMember);
 
     List<TicketDTO> selectTicketByLoggedInMember(MemberDTO loggedInMember);
+
+    List<TicketDTO> selectAllTicket();
 }

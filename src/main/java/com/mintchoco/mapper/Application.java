@@ -38,7 +38,11 @@ public class Application {
             switch (option) {
                 case 1:
                     member = memberController.logIn(inputMemberIdAndPWD());
-                    memberController.setLoginInfo(member);
+                    if(member != null) {
+                        memberController.setLoginInfo(member);
+                    } else {
+                        break;
+                    }
                     do {
                         System.out.println("=========== 민초레일 운행 사이트 ===========");
                         System.out.println("무엇을 도와드릴까요?");
@@ -76,7 +80,7 @@ public class Application {
 
             }
 
-        } while(member.getMemberID() == null);
+        } while(member == null);
 
     }
 
@@ -336,7 +340,7 @@ public class Application {
 
         do {
             System.out.println("============ 티켓 예매내역 확인 메뉴 ============");
-            System.out.println("1. 티켓 전체 조회");
+            System.out.println("1. 티켓 전체 조회(관리자)");
             System.out.println("2. 티켓 구매");
             System.out.println("3. 예매 내역 수정");
             System.out.println("4. 티켓 환불");
@@ -346,7 +350,13 @@ public class Application {
 
             switch (no) {
                 case 1:
-                    ticketController.selectAllTicket(); break;
+                    if(checkAdmin()){
+                        ticketController.selectAllTicket();
+                    } else {
+                        System.out.println("티켓 전체 조회는 관리자만 이용 가능합니다!");
+                    }
+                    break;
+
                 case 2:
                     trainController.selectAllTrain();
                     ticketController.registTicket(inputTicket()); break;

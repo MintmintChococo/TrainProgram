@@ -81,4 +81,15 @@ public class TicketService {
         return ticketList;
     }
 
+    public List<TicketDTO> selectAllTicket() {
+
+        SqlSession sqlSession = getSqlSession();
+        mapper = sqlSession.getMapper(TicketMapper.class);
+
+        List<TicketDTO> ticketList = mapper.selectAllTicket();
+
+        sqlSession.close();
+
+        return ticketList;
+    }
 }

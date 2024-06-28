@@ -41,4 +41,15 @@ public class TicketPrintResult {
 
         System.out.println("}");
     }
+
+    public void printTicketList(List<TicketDTO> ticketList) {
+
+        System.out.println("전체 티켓 목록 조회 {");
+
+        for(TicketDTO ticket : ticketList) {
+            System.out.println(ticket);
+        }
+
+        System.out.println("}");
+    }
 }
