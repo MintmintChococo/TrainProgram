@@ -204,12 +204,26 @@ public class Application {
                 case 2:
                     trainController.searchTrainByTimeOrArea(inputSearchCriteria()); break;
                 case 3:
-                    trainController.insertTrain(inputTrain()); break;
+                    if (checkAdmin()) {
+                        trainController.insertTrain(inputTrain()); break;
+                    } else {
+                        System.out.println("신규 기차 등록은 관리자만 이용 가능합니다!!");
+                        break;
+                    }
                 case 4:
-                    trainController.modifyTrain(inputChangeInfoTrain()); break;
+                    if (checkAdmin()) {
+                        trainController.modifyTrain(inputChangeInfoTrain()); break;
+                    } else {
+                        System.out.println("기차 정보 수정은 관리자만 이용 가능합니다!!");
+                        break;
+                    }
                 case 5:
-                    trainController.deleteTrain(inputScNo()); break;
-
+                    if (checkAdmin()) {
+                        trainController.deleteTrain(inputScNo()); break;
+                    } else {
+                        System.out.println("기차 정보 삭제는 관리자만 이용 가능합니다!!");
+                        break;
+                    }
             }
         } while (true);
     }
