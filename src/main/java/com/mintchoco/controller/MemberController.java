@@ -1,9 +1,10 @@
-package com.mintchoco.mapper.controller;
+package com.mintchoco.controller;
 
 
 import com.mintchoco.common.MemberDTO;
-import com.mintchoco.common.view.MemberPrintResult;
+import com.mintchoco.view.MemberPrintResult;
 import com.mintchoco.mapper.MemberService;
+import lombok.Getter;
 
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,8 @@ public class MemberController {
 
     private final MemberService memberService;
     private final MemberPrintResult printResult;
+    public static MemberDTO loggedInMember;
+
 
     public MemberController() {
         memberService = new MemberService();
@@ -81,5 +84,24 @@ public class MemberController {
         } else {
             printResult.printErrorMessage("selectList");
         }
+    }
+
+    public MemberDTO logIn(Map<String, String> parameter) {
+
+        MemberDTO member = memberService.logIn(parameter);
+
+        if(member != null) {
+            printResult.printSuccessMessage("login");
+            System.out.println("============ 로그인 회원 정보 ============");
+            System.out.println(member);
+        } else {
+            printResult.printErrorMessage("login");
+        }
+
+        return member;
+    }
+
+    public void setLoginInfo(MemberDTO member) {
+        loggedInMember = member;
     }
 }

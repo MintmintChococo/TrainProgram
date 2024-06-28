@@ -4,29 +4,49 @@ import com.mintchoco.common.SearchCriteria;
 import com.mintchoco.common.MemberDTO;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.HashMap;
 import java.util.Map;
 import com.mintchoco.common.TrainDTO;
-import com.mintchoco.mapper.controller.MemberController;
+import com.mintchoco.controller.MemberController;
 
-import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Scanner;
+
+import static com.mintchoco.controller.MemberController.loggedInMember;
 
 public class Application {
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
+        MemberDTO member = new MemberDTO();
+        MemberController memberController = new MemberController();
+
+        System.out.println("=========== 민초레일 사이트를 방문해주셔셔 감사합니다~~ :) ===========");
+        do{
+            System.out.println("1. 기존 회원으로 로그인하기");
+            System.out.println("2. 회원 가입");
+            System.out.print("번호를 입력하세요 : ");
+            int option = sc.nextInt();
+
+            switch (option) {
+                case 1:
+                    member = memberController.logIn(inputMemberIdAndPWD());
+                    memberController.setLoginInfo(member);
+                    break;
+
+                case 2: memberController.register(inputMember()); break;
+            }
+
+        } while(member.getMemberID() == null);
+
 
         do {
             System.out.println("=========== 민초레일 운행 사이트 ===========");
-            System.out.println("1. 회원");
+            System.out.println("무엇을 도와드릴까요?");
+            System.out.println("1. 회원 관리(가입, 탈퇴, 수정, 조회) ");
             System.out.println("2. 기차");
             System.out.println("3. 예매티켓");
-            System.out.println("번호를 입력하세요 : ");
+            System.out.print("번호를 입력하세요 : ");
             int no = sc.nextInt();
 
             switch (no) {
@@ -64,7 +84,13 @@ public class Application {
                 case 2: memberController.deleteMember(inputMemberId()); break;
                 case 3: memberController.updateMember(updateMemberById()); break;
                 case 4: memberController.selectOneMember(inputMemberId()); break;
-                case 5: memberController.selectAllMember(); break;
+                case 5:
+                    if (loggedInMember.getMemberName().equals("관리자")) {
+                        memberController.selectAllMember(); break;
+                    } else {
+                        System.out.println("전체 회원 정보 기능은 관리자만 이용 가능합니다!!");
+                        break;
+                    }
             }
         } while (true);
     }
@@ -100,6 +126,22 @@ public class Application {
 
         Map<String, String> parameter = new HashMap<>();
         parameter.put("memID", memID);
+
+        return parameter;
+    }
+
+    private static Map<String, String> inputMemberIdAndPWD() {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("ID 입력 : ");
+        String ID = sc.next();
+        System.out.print("PWD 입력 : ");
+        String PWD = sc.next();
+
+        Map<String, String> parameter = new HashMap<>();
+        parameter.put("ID", ID);
+        parameter.put("PWD", PWD);
 
         return parameter;
     }
