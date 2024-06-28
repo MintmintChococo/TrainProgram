@@ -25,14 +25,11 @@ DROP TABLE IF EXISTS `ticket`;
 CREATE TABLE `ticket` (
   `ticket_no` int NOT NULL AUTO_INCREMENT COMMENT '예매번호',
   `mem_no` int NOT NULL COMMENT '회원번호',
-  `train_no` int NOT NULL COMMENT '기차번호',
+  `sc_no` int NOT NULL COMMENT '운행번호',
   `seat_no` varchar(3) DEFAULT NULL COMMENT '좌석번호',
-  `departure` varchar(255) NOT NULL COMMENT '출발지',
-  `arrival` varchar(45) NOT NULL COMMENT '목적지',
-  `time` varchar(45) NOT NULL COMMENT '열차 출발시간',
-  PRIMARY KEY (`ticket_no`,`mem_no`,`train_no`),
-  UNIQUE KEY `ticket_PK` (`ticket_no`,`mem_no`,`train_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='티켓';
+  PRIMARY KEY (`ticket_no`,`mem_no`,`sc_no`),
+  UNIQUE KEY `ticket_PK` (`ticket_no`,`mem_no`,`sc_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +38,7 @@ CREATE TABLE `ticket` (
 
 LOCK TABLES `ticket` WRITE;
 /*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
-INSERT INTO `ticket` VALUES (1,2,4,'C5','울산','인천','13:00'),(2,3,2,'A40','수서','동탄','13:00'),(3,1,3,'B1','서울','대구','9:50');
+INSERT INTO `ticket` VALUES (1,2,4,'C5'),(2,3,17,'A20'),(3,1,21,'B1');
 /*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-25 18:01:33
+-- Dump completed on 2024-06-28 11:04:10
