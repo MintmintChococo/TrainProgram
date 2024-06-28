@@ -25,9 +25,10 @@ public class Application {
         MemberController memberController = new MemberController();
 
         System.out.println("=========== 민초레일 사이트를 방문해주셔셔 감사합니다~~ :) ===========");
-        do{
+        Exit : do{
             System.out.println("1. 기존 회원으로 로그인하기");
             System.out.println("2. 회원 가입");
+            System.out.println("0. 프로그램 종료");
             System.out.print("번호를 입력하세요 : ");
             int option = sc.nextInt();
 
@@ -35,36 +36,45 @@ public class Application {
                 case 1:
                     member = memberController.logIn(inputMemberIdAndPWD());
                     memberController.setLoginInfo(member);
-                    break;
+                    do {
+                        System.out.println("=========== 민초레일 운행 사이트 ===========");
+                        System.out.println("무엇을 도와드릴까요?");
+                        System.out.println("1. 회원 관리(가입, 탈퇴, 수정, 조회) ");
+                        System.out.println("2. 기차");
+                        System.out.println("3. 예매티켓");
+                        System.out.println("9. 로그아웃");
+                        System.out.println("0. 프로그램 종료");
+                        System.out.print("번호를 입력하세요 : ");
+                        int no = sc.nextInt();
+
+                        switch (no) {
+
+                            case 1:
+                                memberSubMenu();
+                                break;
+                            case 2:
+                                trainSubMenu();
+                                break;
+                            case 3:
+                                ticketSubMenu();
+                                break;
+                            case 9:
+                                System.out.println("로그아웃을 진행합니다...");
+                                return;
+                            case 0:
+                                System.out.println("프로그램을 종료합니다...");
+                                break Exit;
+                        }
+                    } while (true);
 
                 case 2: memberController.register(inputMember()); break;
+
+                case 0: return;
+
             }
 
         } while(member.getMemberID() == null);
 
-
-        do {
-            System.out.println("=========== 민초레일 운행 사이트 ===========");
-            System.out.println("무엇을 도와드릴까요?");
-            System.out.println("1. 회원 관리(가입, 탈퇴, 수정, 조회) ");
-            System.out.println("2. 기차");
-            System.out.println("3. 예매티켓");
-            System.out.print("번호를 입력하세요 : ");
-            int no = sc.nextInt();
-
-            switch (no) {
-
-                case 1:
-                    memberSubMenu();
-                    break;
-                case 2:
-                    trainSubMenu();
-                    break;
-                case 3:
-                    ticketSubMenu();
-                    break;
-            }
-        } while (true);
     }
 
     private static void memberSubMenu() {
@@ -80,6 +90,7 @@ public class Application {
             System.out.println("3. 회원 정보 수정");
             System.out.println("4. 회원 정보 조회");
             System.out.println("5. 전체 회원 정보 조회(관리자)");
+            System.out.println("0. 이전으로 돌아가기");
             System.out.print("메뉴 번호를 입력하세요 : ");
             int no = sc.nextInt();
 
@@ -95,6 +106,8 @@ public class Application {
                         System.out.println("전체 회원 정보 기능은 관리자만 이용 가능합니다!!");
                         break;
                     }
+                case 0:
+                    return;
             }
         } while (true);
     }
@@ -195,6 +208,7 @@ public class Application {
             System.out.println("3. 신규 기차 등록(관리자)");
             System.out.println("4. 기차 정보 수정(관리자)");
             System.out.println("5. 기차 정보 삭제(관리자)");
+            System.out.println("0. 이전으로 돌아가기");
             System.out.println("번호를 입력하세요 : ");
             int no = sc.nextInt();
 
@@ -224,6 +238,8 @@ public class Application {
                         System.out.println("기차 정보 삭제는 관리자만 이용 가능합니다!!");
                         break;
                     }
+                case 0:
+                    return;
             }
         } while (true);
     }
@@ -310,6 +326,7 @@ public class Application {
             System.out.println("2. 티켓 구매");
             System.out.println("3. 예매 내역 수정");
             System.out.println("4. 티켓 환불");
+            System.out.println("0. 이전으로 돌아가기");
             System.out.println("메뉴 번호를 입력하세요 : ");
             int no = sc.nextInt();
 
@@ -322,8 +339,8 @@ public class Application {
                     ticketController.updateTicket(inputChangeInfoTicket()); break;
                 case 4:
                     ticketController.deleteTicket(); break;
-
-
+                case 0:
+                    return;
             }
         } while (true);
     }
