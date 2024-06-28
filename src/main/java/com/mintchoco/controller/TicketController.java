@@ -1,6 +1,5 @@
 package com.mintchoco.controller;
 
-import com.mintchoco.common.MemberDTO;
 import com.mintchoco.common.TicketDTO;
 import com.mintchoco.mapper.TicketService;
 import com.mintchoco.view.TicketPrintResult;
