@@ -25,4 +25,15 @@ public class TicketController {
         }
 
     }
+
+    public void updateTicket(TicketDTO ticketDTO) {
+
+        boolean result = ticketService.updateTicket(ticketDTO);
+
+        if(result) {
+            ticketPrintResult.printSuccessMessage("update");
+        } else {
+            ticketPrintResult.printErrorMessage("update");
+        }
+    }
 }

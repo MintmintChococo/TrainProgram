@@ -27,4 +27,23 @@ public class TicketService {
 
         return result > 0;
     }
+
+    public boolean updateTicket(TicketDTO ticket) {
+
+
+        SqlSession sqlSession = getSqlSession();
+
+        mapper = sqlSession.getMapper(TicketMapper.class);
+
+        int result = mapper.updateTicket(ticket);
+
+        if(result > 0) {
+            sqlSession.commit();
+        } else {
+            sqlSession.rollback();
+        }
+        sqlSession.close();
+
+        return result > 0;
+    }
 }

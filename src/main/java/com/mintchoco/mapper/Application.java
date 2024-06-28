@@ -303,9 +303,33 @@ public class Application {
 //                    ticketController.selectAllTicket(); break;
                 case 2:
                     ticketController.registTicket(inputTicket()); break;
+                case 3:
+                    ticketController.updateTicket(inputChangeInfoTicket()); break;
 
             }
         } while (true);
+    }
+
+    private static TicketDTO inputChangeInfoTicket() {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("변경할 티켓 번호를 입력하세요 : ");
+        int ticketNo = sc.nextInt();
+        System.out.println("변경할 회원 번호를 입력하세요 : ");
+        int memNo = sc.nextInt();
+        System.out.println("변경할 운행 번호를 입력하세요 : ");
+        int scNo = sc.nextInt();
+        System.out.println("변경할 좌석 번호를 입력하세요 : ");
+        sc.nextLine();
+        String seatNo = sc.nextLine();
+
+        TicketDTO ticket = new TicketDTO();
+        ticket.setTicketNo(ticketNo);
+        ticket.setMemNo(memNo);
+        ticket.setScNo(scNo);
+        ticket.setSeatNo(seatNo);
+
+        return ticket;
     }
 
     private static TicketDTO inputTicket() {
