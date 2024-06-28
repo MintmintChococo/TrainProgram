@@ -7,5 +7,7 @@ public interface TicketMapper {
 
     int registTicket(TicketDTO ticket);
 
+    int updateTicket(TicketDTO ticket);
+
     int deleteTicket(MemberDTO loggedInMember);
 }

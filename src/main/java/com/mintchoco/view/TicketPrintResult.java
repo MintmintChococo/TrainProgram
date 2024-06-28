@@ -12,6 +12,7 @@ public class TicketPrintResult {
             case "update": errorMessage = "티켓 수정을 실패했습니다."; break;
             case "delete": errorMessage = "티켓 삭제를 실패했습니다."; break;
         }
+        System.out.println(errorMessage);
 
     }
     public void printSuccessMessage(String successCode) {

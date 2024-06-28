@@ -200,21 +200,30 @@ public class Application {
 
             switch (no) {
                 case 1:
-                    trainController.selectAllTrain();
-                    break;
+                    trainController.selectAllTrain(); break;
                 case 2:
-                    trainController.searchTrainByTimeOrArea(inputSearchCriteria());
-                    break;
+                    trainController.searchTrainByTimeOrArea(inputSearchCriteria()); break;
                 case 3:
-                    trainController.insertTrain(inputTrain());
-                    break;
+                    if (checkAdmin()) {
+                        trainController.insertTrain(inputTrain()); break;
+                    } else {
+                        System.out.println("신규 기차 등록은 관리자만 이용 가능합니다!!");
+                        break;
+                    }
                 case 4:
-                    trainController.modifyTrain(inputChangeInfoTrain());
-                    break;
+                    if (checkAdmin()) {
+                        trainController.modifyTrain(inputChangeInfoTrain()); break;
+                    } else {
+                        System.out.println("기차 정보 수정은 관리자만 이용 가능합니다!!");
+                        break;
+                    }
                 case 5:
-                    trainController.deleteTrain(inputScNo());
-                    break;
-
+                    if (checkAdmin()) {
+                        trainController.deleteTrain(inputScNo()); break;
+                    } else {
+                        System.out.println("기차 정보 삭제는 관리자만 이용 가능합니다!!");
+                        break;
+                    }
             }
         } while (true);
     }
@@ -310,14 +319,35 @@ public class Application {
                 case 2:
                     ticketController.registTicket(inputTicket()); break;
                 case 3:
-                    break;
+                    ticketController.updateTicket(inputChangeInfoTicket()); break;
                 case 4:
-                    ticketController.deleteTicket();
-                    break;
+                    ticketController.deleteTicket(); break;
 
 
             }
         } while (true);
+    }
+
+    private static TicketDTO inputChangeInfoTicket() {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("변경할 티켓 번호를 입력하세요 : ");
+        int ticketNo = sc.nextInt();
+        System.out.println("변경할 회원 번호를 입력하세요 : ");
+        int memNo = sc.nextInt();
+        System.out.println("변경할 운행 번호를 입력하세요 : ");
+        int scNo = sc.nextInt();
+        System.out.println("변경할 좌석 번호를 입력하세요 : ");
+        sc.nextLine();
+        String seatNo = sc.nextLine();
+
+        TicketDTO ticket = new TicketDTO();
+        ticket.setTicketNo(ticketNo);
+        ticket.setMemNo(memNo);
+        ticket.setScNo(scNo);
+        ticket.setSeatNo(seatNo);
+
+        return ticket;
     }
 
     private static TicketDTO inputTicket() {
