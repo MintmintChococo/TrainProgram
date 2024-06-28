@@ -3,7 +3,7 @@ package com.mintchoco.controller;
 import com.mintchoco.common.TicketDTO;
 import com.mintchoco.mapper.TicketService;
 import com.mintchoco.view.TicketPrintResult;
-
+import java.util.Scanner;
 public class TicketController {
 
     private final TicketPrintResult ticketPrintResult;
@@ -35,5 +35,12 @@ public class TicketController {
         } else {
             ticketPrintResult.printErrorMessage("update");
         }
+    }
+
+    public void deleteTicket() {
+
+        Scanner sc = new Scanner(System.in);
+
+
     }
 }

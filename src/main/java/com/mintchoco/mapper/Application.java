@@ -89,7 +89,7 @@ public class Application {
                 case 3: memberController.updateMember(updateMemberById()); break;
                 case 4: memberController.selectOneMember(inputMemberId()); break;
                 case 5:
-                    if (loggedInMember.getMemberName().equals("관리자")) {
+                    if (checkAdmin()) {
                         memberController.selectAllMember(); break;
                     } else {
                         System.out.println("전체 회원 정보 기능은 관리자만 이용 가능합니다!!");
@@ -98,6 +98,12 @@ public class Application {
             }
         } while (true);
     }
+
+    public static boolean checkAdmin() {
+
+        return loggedInMember.getMemberID().equals("admin") && loggedInMember.getMemberPWD().equals("admin123");
+    }
+
 
     private static MemberDTO inputMember() {
 
@@ -194,20 +200,15 @@ public class Application {
 
             switch (no) {
                 case 1:
-                    trainController.selectAllTrain();
-                    break;
+                    trainController.selectAllTrain(); break;
                 case 2:
-                    trainController.searchTrainByTimeOrArea(inputSearchCriteria());
-                    break;
+                    trainController.searchTrainByTimeOrArea(inputSearchCriteria()); break;
                 case 3:
-                    trainController.insertTrain(inputTrain());
-                    break;
+                    trainController.insertTrain(inputTrain()); break;
                 case 4:
-                    trainController.modifyTrain(inputChangeInfoTrain());
-                    break;
+                    trainController.modifyTrain(inputChangeInfoTrain()); break;
                 case 5:
-                    trainController.deleteTrain(inputScNo());
-                    break;
+                    trainController.deleteTrain(inputScNo()); break;
 
             }
         } while (true);
@@ -305,6 +306,9 @@ public class Application {
                     ticketController.registTicket(inputTicket()); break;
                 case 3:
                     ticketController.updateTicket(inputChangeInfoTicket()); break;
+                case 4:
+                    ticketController.deleteTicket(); break;
+
 
             }
         } while (true);
